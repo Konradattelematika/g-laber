@@ -1,6 +1,6 @@
 export const site = {
   title: 'G-Laber Podcast',
-  domain: 'https://g-laber.de',
+  domain: 'https://g-laber.com',
   claim: 'Jeden Donnerstag die geballte Prise „ach, alles halb so wild“.',
   description:
     'Roger G. (Comedian, Rostocker) und Jana Jansen (Comedian, Rheinländerin) haben einen Podcast. Hier sind alle Landratten und Kanalmäuse richtig. Jeden Donnerstag die geballte Prise „ach, alles halb so wild“.',

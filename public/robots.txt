@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://g-laber.de/sitemap.xml
+Sitemap: https://g-laber.com/sitemap.xml

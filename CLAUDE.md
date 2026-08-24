@@ -1,7 +1,9 @@
-# G-Laber Podcast — Website (g-laber.de)
+# G-Laber Podcast — Website (g-laber.com)
 
 Offizielle Website für den **G-Laber Podcast** von Roger G. (Rostock) und
-Jana Jansen (Rheinland). Ersetzt den bisherigen Platzhalter auf g-laber.de.
+Jana Jansen (Rheinland). Domain ist **g-laber.com** (passend zur Kontakt-Mail;
+das ältere g-laber.de mit dem Sprechblasen-Platzhalter liegt woanders und
+gehört NICHT zu diesem Projekt).
 Statischer Astro-Build, kein CMS, kein Tracking, keine Cookies.
 
 ## Stack & Struktur
@@ -36,7 +38,7 @@ Statischer Astro-Build, kein CMS, kein Tracking, keine Cookies.
 
 - Git-Remote: `git@github.com:Konradattelematika/g-laber.git`, Branch `main`
 - Coolify-App `g-laber-website` im Projekt "Roger G", UUID `b100apyia03x43qr8j7fxq6e`,
-  Build Pack Dockerfile, Domain https://g-laber.de
+  Build Pack Dockerfile, Domain https://g-laber.com (Achtung: g-laber.de war ein Irrtum, .com ist richtig)
 - **Kein GitHub-Webhook** (kein gh-CLI auf dem Server) — nach jedem Push Deploy
   manuell triggern:
 
@@ -48,12 +50,12 @@ Statischer Astro-Build, kein CMS, kein Tracking, keine Cookies.
 
 - Status/Logs: `GET /api/v1/applications/b100apyia03x43qr8j7fxq6e` bzw.
   `/deployments/applications/<uuid>`. Lokaler Smoke-Test ohne DNS:
-  `curl -sk --resolve g-laber.de:443:127.0.0.1 https://g-laber.de/`
+  `curl -sk --resolve g-laber.com:443:127.0.0.1 https://g-laber.com/`
 
 ## Offene Punkte
 
-- [ ] **DNS umstellen** (macht Konrad): g-laber.de zeigt noch auf netcup
-      (AAAA 2a03:4000:17:364::1). Neu: A `167.233.49.190`,
+- [ ] **DNS anlegen** (macht Konrad): g-laber.com hat noch keine A/AAAA-Records.
+      Neu anlegen: A `167.233.49.190`,
       AAAA `2a01:4f8:c015:ba9c::1` (oder AAAA löschen). Danach einmal
       Deploy triggern, damit Let's Encrypt das Zertifikat zieht.
 - [ ] Impressum + Datenschutz mit echten Inhalten füllen (§ 5 DDG / DSGVO)
