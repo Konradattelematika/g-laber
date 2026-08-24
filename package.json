@@ -1,0 +1,21 @@
+{
+  "name": "g-laber-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch-feed": "node scripts/fetch-feed.mjs",
+    "prep-images": "node scripts/prep-images.mjs",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.5",
+    "@fontsource/anton": "^5.2.5",
+    "astro": "^5.12.0"
+  },
+  "devDependencies": {
+    "lighthouse": "^12.8.2",
+    "sharp": "^0.34.2"
+  }
+}

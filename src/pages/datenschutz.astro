@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+---
+
+<Layout title="Datenschutz — G-Laber Podcast" noindex>
+  <section class="section">
+    <div class="container legal">
+      <h1>Datenschutz</h1>
+      <p class="todo-hinweis">
+        Platzhalter — DSGVO-konforme Datenschutzerklärung bitte ergänzen. Relevante
+        Punkte dieser Seite: Hosting (Server-Logs), Audio-Streaming über Riverside
+        (beim Abspielen wird eine Verbindung zu api.riverside.com aufgebaut),
+        externe Links zu Spotify, Apple Podcasts und Instagram. Es werden keine
+        Cookies gesetzt und keine Tracker eingebunden.
+      </p>
+      <h2>Fragen?</h2>
+      <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal { max-width: 46rem; }
+  .legal h1 { font-size: var(--display-lg); margin-bottom: 2rem; }
+  .legal h2 { font-size: var(--display-md); margin: 2.5rem 0 0.8rem; }
+  .todo-hinweis {
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--apricot) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--apricot) 40%, transparent);
+    color: var(--apricot);
+  }
+  .legal a { color: var(--apricot); }
+</style>
