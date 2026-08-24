@@ -32,16 +32,32 @@ Statischer Astro-Build, kein CMS, kein Tracking, keine Cookies.
 - Lighthouse lokal: `npx lighthouse http://localhost:4322/ --chrome-flags="--headless --no-sandbox"`.
   Stand 2026-08-24: 100/100/100/100, LCP 1,7 s, CLS 0.
 
-## Deployment
+## Deployment (eingerichtet 2026-08-24)
 
-Coolify (Build Pack: Dockerfile, wie tryout-tour). Noch NICHT deployt —
-es fehlt ein Git-Remote/Coolify-App. Domain-Ziel: g-laber.de.
+- Git-Remote: `git@github.com:Konradattelematika/g-laber.git`, Branch `main`
+- Coolify-App `g-laber-website` im Projekt "Roger G", UUID `b100apyia03x43qr8j7fxq6e`,
+  Build Pack Dockerfile, Domain https://g-laber.de
+- **Kein GitHub-Webhook** (kein gh-CLI auf dem Server) — nach jedem Push Deploy
+  manuell triggern:
+
+  ```bash
+  source ~/claude-cloud/env  # enthält COOLIFY_API_TOKEN
+  curl -s -H "Authorization: Bearer $COOLIFY_API_TOKEN" \
+    "https://coolify.jawollja.gmbh/api/v1/deploy?uuid=b100apyia03x43qr8j7fxq6e"
+  ```
+
+- Status/Logs: `GET /api/v1/applications/b100apyia03x43qr8j7fxq6e` bzw.
+  `/deployments/applications/<uuid>`. Lokaler Smoke-Test ohne DNS:
+  `curl -sk --resolve g-laber.de:443:127.0.0.1 https://g-laber.de/`
 
 ## Offene Punkte
 
+- [ ] **DNS umstellen** (macht Konrad): g-laber.de zeigt noch auf netcup
+      (AAAA 2a03:4000:17:364::1). Neu: A `167.233.49.190`,
+      AAAA `2a01:4f8:c015:ba9c::1` (oder AAAA löschen). Danach einmal
+      Deploy triggern, damit Let's Encrypt das Zertifikat zieht.
 - [ ] Impressum + Datenschutz mit echten Inhalten füllen (§ 5 DDG / DSGVO)
 - [ ] Direkten `open.spotify.com/show/…`-Link eintragen (aktuell Creators-Profil-Link
       in `src/data/site.ts`), sobald bekannt
-- [ ] Git-Remote + Coolify-App anlegen, DNS für g-laber.de umstellen
-- [ ] Optional: Automatischer wöchentlicher `fetch-feed`-Lauf (cc-queue/loopctl),
-      damit neue Folgen ohne Handarbeit erscheinen
+- [ ] Optional: Wöchentlicher Job (loopctl): `npm run fetch-feed` → commit →
+      push → Deploy-Trigger, damit neue Folgen automatisch erscheinen
