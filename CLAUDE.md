@@ -54,10 +54,8 @@ Statischer Astro-Build, kein CMS, kein Tracking, keine Cookies.
 
 ## Offene Punkte
 
-- [ ] **DNS anlegen** (macht Konrad): g-laber.com hat noch keine A/AAAA-Records.
-      Neu anlegen: A `167.233.49.190`,
-      AAAA `2a01:4f8:c015:ba9c::1` (oder AAAA löschen). Danach einmal
-      Deploy triggern, damit Let's Encrypt das Zertifikat zieht.
+- [x] DNS + SSL: seit 2026-08-26 live — A-Record 167.233.49.190 (nur Apex,
+      kein www-Record), Let's-Encrypt-Zertifikat gültig bis 2026-11-24.
 - [ ] Impressum + Datenschutz mit echten Inhalten füllen (§ 5 DDG / DSGVO)
 - [ ] Direkten `open.spotify.com/show/…`-Link eintragen (aktuell Creators-Profil-Link
       in `src/data/site.ts`), sobald bekannt
