@@ -52,10 +52,25 @@ Statischer Astro-Build, kein CMS, kein Tracking, keine Cookies.
   `/deployments/applications/<uuid>`. Lokaler Smoke-Test ohne DNS:
   `curl -sk --resolve g-laber.com:443:127.0.0.1 https://g-laber.com/`
 
+## Kinetische Typo (Aufruf + Hover)
+
+`src/components/Kinetic.astro` zerlegt Überschriften in Buchstaben-Spans.
+Reveal per @keyframes, Hover per transition (getrennte CSS-Kanäle, siehe
+global.css). `reveal` = Load-Animation (Hero), `scroll` = beim Scrollen in den
+Viewport (app.js setzt `.is-in` via IntersectionObserver). Easing `--ease-expo`
+/ `--ease-spring`. Barrierefrei über `.sr-only`-Text (kein aria-label auf span).
+
 ## Offene Punkte
 
 - [x] DNS + SSL: seit 2026-08-26 live — A-Record 167.233.49.190 (nur Apex,
       kein www-Record), Let's-Encrypt-Zertifikat gültig bis 2026-11-24.
+- [x] Host-Fotos: echte Studio-/Streetfotos (Jana + Roger), Jana-Ticketlink
+      (janajansen.de/items), kinetische Typo — alles live (Stand 2026-08-28).
+- [ ] **Cover-Entscheidung**: KI-Cover-Vorschläge liegen in `proposals/`
+      (Hero-Mockup `hero-mockup-with-wordmark.webp`). Wenn Konrad zustimmt →
+      breites Motiv als Hero-Hintergrund einbauen (Anleitung in proposals/README).
+      Erzeugt mit gpt-image-1, weil Higgsfield-Key fehlt; Higgsfield-Runner
+      liegt bereit (`scripts/higgsfield-cover.mjs` + `cover-prompts.json`).
 - [ ] Impressum + Datenschutz mit echten Inhalten füllen (§ 5 DDG / DSGVO)
 - [ ] Direkten `open.spotify.com/show/…`-Link eintragen (aktuell Creators-Profil-Link
       in `src/data/site.ts`), sobald bekannt
