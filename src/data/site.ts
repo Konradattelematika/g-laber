@@ -27,7 +27,10 @@ export const site = {
       role: 'Comedian · Rheinland',
       bio: 'Stand-up-Comedian mit rheinischer Frohnatur und Berliner Bühnenalltag. Bringt die Pointen — und Roger regelmäßig aus dem Konzept.',
       image: '/img/jana.webp',
-      links: [{ label: 'Instagram', url: 'https://www.instagram.com/janajansen_/' }],
+      links: [
+        { label: 'Instagram', url: 'https://www.instagram.com/janajansen_/' },
+        { label: 'Tickets', url: 'https://www.janajansen.de/items' },
+      ],
     },
   ],
   production: { label: 'Platte Comedy', url: 'https://www.instagram.com/platte.comedy/' },

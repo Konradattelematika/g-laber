@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import EpisodeCard from '../components/EpisodeCard.astro';
+import Kinetic from '../components/Kinetic.astro';
 import { site } from '../data/site';
 import feed from '../data/episodes.json';
 
@@ -41,8 +42,8 @@ const schema = [
       <div class="hero-copy">
         <p class="hero-badge"><span class="pulse" aria-hidden="true"></span> Neue Folge jeden Donnerstag</p>
         <h1 class="hero-title">
-          <span class="line">G-Laber</span>
-          <span class="line accent">Podcast</span>
+          <Kinetic text="G-Laber" class="line" reveal />
+          <Kinetic text="Podcast" class="line accent" reveal startIndex={7} />
         </h1>
         <p class="hero-claim">
           Roger G. &amp; Jana Jansen — hier sind alle Landratten und Kanalmäuse richtig.
@@ -81,7 +82,7 @@ const schema = [
   <section class="section latest" aria-labelledby="latest-heading">
     <div class="container" data-reveal-group>
       <p class="kicker" data-reveal>Frisch aus der Kombüse</p>
-      <h2 class="section-title" id="latest-heading" data-reveal>Die neueste Folge</h2>
+      <h2 class="section-title" id="latest-heading" data-reveal><Kinetic text="Die neueste Folge" /></h2>
       <div data-reveal>
         <EpisodeCard episode={latest} variant="feature" />
       </div>
@@ -92,7 +93,7 @@ const schema = [
   <section class="section archive" id="folgen" aria-labelledby="folgen-heading">
     <div class="container" data-reveal-group>
       <p class="kicker archive-kicker" data-reveal>Zum Nachhören</p>
-      <h2 class="section-title archive-title" id="folgen-heading" data-reveal>Alle Folgen</h2>
+      <h2 class="section-title archive-title" id="folgen-heading" data-reveal><Kinetic text="Alle Folgen" /></h2>
       <div class="archive-list">
         {older.map((ep) => (
           <div data-reveal>
@@ -113,7 +114,7 @@ const schema = [
   <section class="section hosts" id="hosts" aria-labelledby="hosts-heading">
     <div class="container" data-reveal-group>
       <p class="kicker" data-reveal>Wer labert hier eigentlich?</p>
-      <h2 class="section-title" id="hosts-heading" data-reveal>Ostsee trifft Rheinland</h2>
+      <h2 class="section-title" id="hosts-heading" data-reveal><Kinetic text="Ostsee trifft Rheinland" /></h2>
       <div class="hosts-grid">
         {site.hosts.map((host) => (
           <article class="host-card" data-reveal>
@@ -139,7 +140,7 @@ const schema = [
     <div class="container kontakt-inner" data-reveal-group>
       <div class="speech-bubble" data-reveal>
         <p class="kicker">Ahoi, schreibt uns</p>
-        <h2 class="section-title" id="kontakt-heading">Themen, Fragen, Seemannsgarn?</h2>
+        <h2 class="section-title" id="kontakt-heading"><Kinetic text="Themen, Fragen, Seemannsgarn?" /></h2>
         <p class="kontakt-text">
           Eure Geschichten landen in der nächsten Folge. Immer her damit — Flaschenpost
           wird auch akzeptiert, E-Mail ist schneller.
@@ -211,18 +212,12 @@ const schema = [
     color: var(--apricot);
     -webkit-text-stroke: 0;
   }
+  /* Hero-Titel wird pro Buchstabe eingeblendet (siehe <Kinetic> / global.css);
+     der restliche Copy-Block und das Cover faden nach. */
   @media (prefers-reduced-motion: no-preference) {
-    .hero-title .line {
-      animation: rise 0.9s var(--ease-out) both;
-    }
-    .hero-title .line.accent { animation-delay: 0.12s; }
     .hero-copy > :not(.hero-title), .hero-art {
       animation: fade 0.9s var(--ease-out) 0.35s both;
     }
-  }
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(0.6em); }
-    to { opacity: 1; transform: none; }
   }
   @keyframes fade {
     from { opacity: 0; transform: translateY(18px); }
@@ -325,9 +320,9 @@ const schema = [
   }
   .host-card img {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
-    object-position: top;
+    object-position: center;
   }
   .host-body { padding: clamp(1.3rem, 2.5vw, 2rem); }
   .host-body h3 { font-size: var(--display-md); }

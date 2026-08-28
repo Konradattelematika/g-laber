@@ -1,0 +1,37 @@
+---
+/**
+ * Kinetische Typo: zerlegt Text in Buchstaben-Spans für Lade- (reveal) und
+ * Hover-Animationen — inspiriert von Festival-Sites. Barrierefrei: die Wörter
+ * sind aria-hidden, der Gesamttext steht als aria-label am Wrapper, damit
+ * Screenreader die Überschrift normal vorlesen. Rein serverseitig gerendert,
+ * die Animationen laufen per CSS (funktioniert auch ohne JS).
+ */
+interface Props {
+  text: string;
+  class?: string;
+  /** Buchstaben-für-Buchstaben beim Laden einblenden (nur für den Hero-Aufruf) */
+  reveal?: boolean;
+  /** Start-Index für den Stagger, damit mehrzeilige Titel durchlaufen */
+  startIndex?: number;
+}
+
+const { text, class: cls = '', reveal = false, startIndex = 0 } = Astro.props;
+
+let idx = startIndex;
+const words = text.split(' ').map((word) => ({
+  chars: [...word].map((ch) => ({ ch, i: idx++ })),
+}));
+---
+
+<span class:list={['kinetic', { reveal }, cls]} aria-label={text}>
+  {words.map((word, wi) => (
+    <>
+      {wi > 0 ? ' ' : ''}
+      <span class="k-word" aria-hidden="true">
+        {word.chars.map((c) => (
+          <span class="char" style={`--i:${c.i}`}>{c.ch}</span>
+        ))}
+      </span>
+    </>
+  ))}
+</span>

@@ -135,6 +135,39 @@ button { font: inherit; cursor: pointer; }
 .btn-ghost:hover { border-color: var(--apricot); color: var(--apricot); }
 .btn svg { flex: none; }
 
+/* ============================================================
+   Kinetische Typo (<Kinetic>) — Buchstaben-Reveal + Hover-Wave
+   ============================================================ */
+.kinetic { display: inline; }
+.k-word { display: inline-block; white-space: nowrap; }
+.char {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-out), color 0.25s var(--ease-out);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Lade-Reveal: jeder Buchstabe steigt gestaffelt auf.
+     fill: backwards → hält den Startzustand bis zum eigenen Delay und gibt
+     die Eigenschaft danach wieder frei, damit der Hover greift. */
+  .kinetic.reveal .char {
+    animation: charRise 0.7s var(--ease-out) backwards;
+    animation-delay: calc(var(--i, 0) * 0.045s + 0.15s);
+  }
+}
+@keyframes charRise {
+  from { opacity: 0; transform: translateY(0.85em) rotate(4deg); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Maus-Hover: der überfahrene Buchstabe springt hoch, kippt und färbt sich. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .char:hover {
+    transform: translateY(-0.16em) rotate(-5deg);
+    color: var(--apricot);
+  }
+  .accent .char:hover { color: var(--white); }
+}
+
 /* Scroll-Reveals (JS setzt .is-visible; ohne JS bleibt alles sichtbar) */
 @media (prefers-reduced-motion: no-preference) {
   html.js [data-reveal] {
