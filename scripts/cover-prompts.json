@@ -1,0 +1,23 @@
+{
+  "model_id": "text2image/soul",
+  "images": [
+    {
+      "name": "cover-harbor",
+      "aspect_ratio": "1:1",
+      "resolution": "1080p",
+      "prompt": "Bold vintage riso-screenprint podcast cover. Duotone palette: deep petrol teal (#01516a) and warm apricot/peach (#fcc5a3) with cream highlights. A stylized northern-German Baltic Sea harbor at golden hour — a lighthouse, gentle waves, two cheeky seagulls chatting at a vintage ribbon microphone, a small sailboat on the horizon. Thick confident flat shapes, grain texture, playful warm comedy mood, clean negative space in the top third. No text, no letters, no watermark. Square."
+    },
+    {
+      "name": "hero-harbor-wide",
+      "aspect_ratio": "3:2",
+      "resolution": "1080p",
+      "prompt": "Wide cinematic vintage riso-screenprint banner. Duotone deep petrol teal (#01516a) and warm apricot (#fcc5a3) with cream. Northern-German Baltic harbor at golden hour: lighthouse on the right, rolling waves, two seagulls chatting at a vintage microphone, small sailboat, warm sun. Wide empty petrol sky on the LEFT HALF for a title overlay. Grain texture, thick flat shapes, playful warm mood. No text, no letters, no watermark."
+    },
+    {
+      "name": "cover-waves",
+      "aspect_ratio": "1:1",
+      "resolution": "1080p",
+      "prompt": "Minimal iconic flat-vector podcast cover. Solid deep petrol teal (#01516a) background. A large apricot (#fcc5a3) retro microphone merging into stylized cream rolling ocean waves, one small seagull, bold simple shapes, subtle grain, modern warm funny mood, empty space at the top for a wordmark. No text, no letters, no watermark. Square."
+    }
+  ]
+}

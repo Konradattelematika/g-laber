@@ -42,6 +42,8 @@
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);   /* schnell rein, weich aus — „premium“ */
+  --ease-spring: cubic-bezier(0.34, 1.42, 0.5, 1); /* leichter Überschwinger für Hover */
   --dur: 0.65s;
 }
 
@@ -92,6 +94,20 @@ button { font: inherit; cursor: pointer; }
   padding-inline: var(--gutter);
 }
 
+/* Nur für Screenreader — visuell versteckt, aber vorlesbar */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 .section { padding-block: var(--space-section); }
 
 /* Kicker-Zeile über Überschriften */
@@ -136,36 +152,48 @@ button { font: inherit; cursor: pointer; }
 .btn svg { flex: none; }
 
 /* ============================================================
-   Kinetische Typo (<Kinetic>) — Buchstaben-Reveal + Hover-Wave
+   Kinetische Typo (<Kinetic>) — Buchstaben-Reveal + Hover-Welle
+   Angelehnt an Festival-Sites (expo-out-Easing, gestaffelt).
+   Reveal läuft per @keyframes, Hover per transition — getrennte
+   CSS-Kanäle, damit sich beide nicht ins Gehege kommen.
    ============================================================ */
 .kinetic { display: inline; }
 .k-word { display: inline-block; white-space: nowrap; }
 .char {
   display: inline-block;
-  transition: transform 0.3s var(--ease-out), color 0.25s var(--ease-out);
+  transition: transform 0.4s var(--ease-spring), color 0.25s var(--ease-out);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Lade-Reveal: jeder Buchstabe steigt gestaffelt auf.
-     fill: backwards → hält den Startzustand bis zum eigenen Delay und gibt
-     die Eigenschaft danach wieder frei, damit der Hover greift. */
-  .kinetic.reveal .char {
-    animation: charRise 0.7s var(--ease-out) backwards;
+  /* Aufruf im Hero: reiner CSS-Load-Reveal (läuft auch ohne JS).
+     backwards-Fill hält den Startzustand bis zum eigenen Delay und gibt
+     die Eigenschaft danach frei, damit der Hover greift. */
+  html.js .kinetic.reveal .char {
+    animation: charRise 0.85s var(--ease-expo) backwards;
     animation-delay: calc(var(--i, 0) * 0.045s + 0.15s);
+  }
+  /* Abschnitts-Überschriften: gleicher Reveal, aber erst wenn sie
+     in den Viewport scrollen (app.js setzt .is-in). */
+  html.js .kinetic.scroll:not(.is-in) .char { opacity: 0; }
+  html.js .kinetic.scroll.is-in .char {
+    animation: charRise 0.8s var(--ease-expo) backwards;
+    animation-delay: calc(var(--i, 0) * 0.04s);
   }
 }
 @keyframes charRise {
-  from { opacity: 0; transform: translateY(0.85em) rotate(4deg); }
+  from { opacity: 0; transform: translateY(0.9em) rotate(3deg); }
   to { opacity: 1; transform: none; }
 }
 
-/* Maus-Hover: der überfahrene Buchstabe springt hoch, kippt und färbt sich. */
+/* Maus-Hover: der überfahrene Buchstabe federt hoch, kippt und färbt sich.
+   Beim Drüberfahren über ein Wort entsteht so eine Welle. */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .char:hover {
-    transform: translateY(-0.16em) rotate(-5deg);
+    transform: translateY(-0.2em) rotate(-6deg) scale(1.06);
     color: var(--apricot);
   }
   .accent .char:hover { color: var(--white); }
+  .archive .char:hover { color: var(--burgundy); }
 }
 
 /* Scroll-Reveals (JS setzt .is-visible; ohne JS bleibt alles sichtbar) */

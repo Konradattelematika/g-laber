@@ -1,21 +1,23 @@
 ---
 /**
  * Kinetische Typo: zerlegt Text in Buchstaben-Spans für Lade- (reveal) und
- * Hover-Animationen — inspiriert von Festival-Sites. Barrierefrei: die Wörter
- * sind aria-hidden, der Gesamttext steht als aria-label am Wrapper, damit
- * Screenreader die Überschrift normal vorlesen. Rein serverseitig gerendert,
- * die Animationen laufen per CSS (funktioniert auch ohne JS).
+ * Hover-Animationen — inspiriert von Festival-Sites. Barrierefrei: die zerlegten
+ * Wörter sind aria-hidden, davor steht der echte Text visuell versteckt
+ * (.sr-only), damit Screenreader die Überschrift sauber vorlesen. Rein
+ * serverseitig gerendert, die Animationen laufen per CSS (auch ohne JS).
  */
 interface Props {
   text: string;
   class?: string;
   /** Buchstaben-für-Buchstaben beim Laden einblenden (nur für den Hero-Aufruf) */
   reveal?: boolean;
+  /** Reveal erst beim Scrollen in den Viewport (Abschnitts-Überschriften) */
+  scroll?: boolean;
   /** Start-Index für den Stagger, damit mehrzeilige Titel durchlaufen */
   startIndex?: number;
 }
 
-const { text, class: cls = '', reveal = false, startIndex = 0 } = Astro.props;
+const { text, class: cls = '', reveal = false, scroll = false, startIndex = 0 } = Astro.props;
 
 let idx = startIndex;
 const words = text.split(' ').map((word) => ({
@@ -23,7 +25,8 @@ const words = text.split(' ').map((word) => ({
 }));
 ---
 
-<span class:list={['kinetic', { reveal }, cls]} aria-label={text}>
+<span class:list={['kinetic', { reveal, scroll }, cls]}>
+  <span class="sr-only">{text}</span>
   {words.map((word, wi) => (
     <>
       {wi > 0 ? ' ' : ''}

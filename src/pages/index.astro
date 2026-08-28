@@ -82,7 +82,7 @@ const schema = [
   <section class="section latest" aria-labelledby="latest-heading">
     <div class="container" data-reveal-group>
       <p class="kicker" data-reveal>Frisch aus der Kombüse</p>
-      <h2 class="section-title" id="latest-heading" data-reveal><Kinetic text="Die neueste Folge" /></h2>
+      <h2 class="section-title" id="latest-heading"><Kinetic text="Die neueste Folge" scroll /></h2>
       <div data-reveal>
         <EpisodeCard episode={latest} variant="feature" />
       </div>
@@ -93,7 +93,7 @@ const schema = [
   <section class="section archive" id="folgen" aria-labelledby="folgen-heading">
     <div class="container" data-reveal-group>
       <p class="kicker archive-kicker" data-reveal>Zum Nachhören</p>
-      <h2 class="section-title archive-title" id="folgen-heading" data-reveal><Kinetic text="Alle Folgen" /></h2>
+      <h2 class="section-title archive-title" id="folgen-heading"><Kinetic text="Alle Folgen" scroll /></h2>
       <div class="archive-list">
         {older.map((ep) => (
           <div data-reveal>
@@ -114,7 +114,7 @@ const schema = [
   <section class="section hosts" id="hosts" aria-labelledby="hosts-heading">
     <div class="container" data-reveal-group>
       <p class="kicker" data-reveal>Wer labert hier eigentlich?</p>
-      <h2 class="section-title" id="hosts-heading" data-reveal><Kinetic text="Ostsee trifft Rheinland" /></h2>
+      <h2 class="section-title" id="hosts-heading"><Kinetic text="Ostsee trifft Rheinland" scroll /></h2>
       <div class="hosts-grid">
         {site.hosts.map((host) => (
           <article class="host-card" data-reveal>
@@ -140,7 +140,7 @@ const schema = [
     <div class="container kontakt-inner" data-reveal-group>
       <div class="speech-bubble" data-reveal>
         <p class="kicker">Ahoi, schreibt uns</p>
-        <h2 class="section-title" id="kontakt-heading"><Kinetic text="Themen, Fragen, Seemannsgarn?" /></h2>
+        <h2 class="section-title" id="kontakt-heading"><Kinetic text="Themen, Fragen, Seemannsgarn?" scroll /></h2>
         <p class="kontakt-text">
           Eure Geschichten landen in der nächsten Folge. Immer her damit — Flaschenpost
           wird auch akzeptiert, E-Mail ist schneller.

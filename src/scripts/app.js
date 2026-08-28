@@ -72,6 +72,7 @@ for (const root of players) {
 
 // ---------- Scroll-Reveals ----------
 if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+  // Block-Reveals (ganze Elemente faden hoch)
   const io = new IntersectionObserver(
     (entries) => {
       for (const e of entries) {
@@ -83,7 +84,7 @@ if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
     },
     { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
   );
-  document.querySelectorAll('[data-reveal]').forEach((el, i) => {
+  document.querySelectorAll('[data-reveal]').forEach((el) => {
     // sanfter Stagger innerhalb einer Gruppe
     const group = el.closest('[data-reveal-group]');
     if (group) {
@@ -92,6 +93,20 @@ if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
     }
     io.observe(el);
   });
+
+  // Kinetische Überschriften: Buchstaben-Reveal beim Eintritt in den Viewport
+  const kio = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          kio.unobserve(e.target);
+        }
+      }
+    },
+    { rootMargin: '0px 0px -12% 0px', threshold: 0.2 }
+  );
+  document.querySelectorAll('.kinetic.scroll').forEach((el) => kio.observe(el));
 } else {
   document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
 }
