@@ -4,7 +4,7 @@
 #  Podcast-Folgen aktuell.
 #
 #  Ablauf (nur wenn es WIRKLICH neue/geänderte Folgen gibt):
-#    1) npm run fetch-feed  -> holt den Riverside-RSS nach
+#    1) npm run fetch-feed  -> holt den Podcast-RSS (Spotify for Creators) nach
 #       src/data/episodes.json
 #    2) Vergleich OHNE das fetchedAt-Feld (der Zeitstempel ändert sich
 #       bei jedem Lauf) -> nur echte Episoden-Änderungen zählen

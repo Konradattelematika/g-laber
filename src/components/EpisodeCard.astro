@@ -8,7 +8,8 @@ interface Props {
     durationSeconds: number;
     description: string;
     audioUrl: string;
-    episodeNumber: number;
+    episodeNumber: number | null;
+    episodeType?: string;
   };
   /** 'feature' = große Karte für die neueste Folge */
   variant?: 'feature' | 'list';
@@ -28,15 +29,25 @@ const durationHuman = episode.duration.replace(/^00:/, '').replace(/^0/, '') // 
 // Beschreibung: erster Absatz als Teaser, Rest einklappbar
 const [teaser, ...rest] = episode.description.split('\n\n');
 const more = rest.join('\n\n').replace(/Schreibt (uns )?immer gerne an.*$/s, '').trim();
+
+// Trailer/Bonus-Folgen haben keine Folgennummer -> als "Bonus" ausweisen,
+// Anker über den Slug statt über die Nummer.
+const isBonus = episode.episodeNumber == null;
+const anchorId = isBonus ? `folge-${episode.slug}` : `folge-${episode.episodeNumber}`;
+const badge = isBonus ? '★' : String(episode.episodeNumber).padStart(2, '0');
+const kicker = isBonus ? 'Bonus' : `Folge ${episode.episodeNumber}`;
+const playLabel = isBonus
+  ? `„${episode.title}“ abspielen`
+  : `Folge ${episode.episodeNumber} „${episode.title}“ abspielen`;
 ---
 
-<article class={`episode ${variant}`} id={`folge-${episode.episodeNumber}`}>
+<article class={`episode ${variant}`} id={anchorId}>
   <header class="episode-head">
-    <span class="episode-number" aria-hidden="true">{String(episode.episodeNumber).padStart(2, '0')}</span>
+    <span class="episode-number" aria-hidden="true">{badge}</span>
     <div>
       <h3 class="episode-title">{episode.title}</h3>
       <p class="episode-meta">
-        Folge {episode.episodeNumber} · <time datetime={dateISO}>{dateHuman}</time> · {durationHuman}
+        {kicker} · <time datetime={dateISO}>{dateHuman}</time> · {durationHuman}
       </p>
     </div>
   </header>
@@ -51,7 +62,7 @@ const more = rest.join('\n\n').replace(/Schreibt (uns )?immer gerne an.*$/s, '')
 
   <div class="player" data-player>
     <audio preload="none" src={episode.audioUrl}></audio>
-    <button class="player-toggle" type="button" data-play aria-label={`Folge ${episode.episodeNumber} „${episode.title}“ abspielen`}>
+    <button class="player-toggle" type="button" data-play aria-label={playLabel}>
       <svg class="icon-play" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.53.85l10.2-6.5a1 1 0 0 0 0-1.7L9.53 4.65A1 1 0 0 0 8 5.5Z"/></svg>
       <svg class="icon-pause" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
     </button>

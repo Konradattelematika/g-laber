@@ -17,9 +17,13 @@ Statischer Astro-Build, kein CMS, kein Tracking, keine Cookies.
 
 ## Inhalte pflegen
 
-- **Neue Folgen**: `npm run fetch-feed` → holt den Riverside-RSS-Feed nach
+- **Neue Folgen**: `npm run fetch-feed` → holt den Podcast-RSS-Feed nach
   `src/data/episodes.json` (eingecheckt, Build braucht kein Netz). Danach
-  committen. Episoden NIE von Hand in Astro-Dateien schreiben.
+  committen. Episoden NIE von Hand in Astro-Dateien schreiben. Aktueller Feed:
+  Spotify for Creators (`https://anchor.fm/s/1160ba830/podcast/rss`) — der
+  frühere Riverside-Feed wurde nach dem Hosting-Wechsel nicht mehr befüllt und
+  blieb bei Folge 5 stehen. Trailer/Bonus-Episoden (itunes:episodeType ≠ full)
+  bekommen keine Folgennummer und erscheinen als „Bonus".
 - **Links/Texte/Hosts**: zentral in `src/data/site.ts`.
 - **Bilder**: `npm run prep-images` erzeugt alles aus `scripts/cover-source.png`
   (Cover-Varianten, Host-Crops, OG-Bild, Touch-Icon).
@@ -72,8 +76,8 @@ Viewport (app.js setzt `.is-in` via IntersectionObserver). Easing `--ease-expo`
       Erzeugt mit gpt-image-1, weil Higgsfield-Key fehlt; Higgsfield-Runner
       liegt bereit (`scripts/higgsfield-cover.mjs` + `cover-prompts.json`).
 - [ ] Impressum + Datenschutz mit echten Inhalten füllen (§ 5 DDG / DSGVO)
-- [ ] Direkten `open.spotify.com/show/…`-Link eintragen (aktuell Creators-Profil-Link
-      in `src/data/site.ts`), sobald bekannt
+- [x] Direkter Spotify-Show-Link eingetragen (2026-08-30):
+      `open.spotify.com/show/033Pnbk0HOhbeO0fyBfsCs` in `src/data/site.ts`
 - [x] Wöchentlicher Feed-Sync (eingerichtet 2026-08-30): loopctl-Skript-Loop
       `g-laber-feed`, Do 12:00 Europe/Berlin. `scripts/feed-sync.sh` holt den
       RSS, committet nur bei echten Episoden-Änderungen (fetchedAt ignoriert),

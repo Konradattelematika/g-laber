@@ -5,11 +5,10 @@ export const site = {
   description:
     'Roger G. (Comedian, Rostocker) und Jana Jansen (Comedian, Rheinländerin) haben einen Podcast. Hier sind alle Landratten und Kanalmäuse richtig. Jeden Donnerstag die geballte Prise „ach, alles halb so wild“.',
   email: 'hallo@g-laber.com',
-  feedUrl: 'https://api.riverside.com/hosting/cJlDQPNZ.rss',
+  feedUrl: 'https://anchor.fm/s/1160ba830/podcast/rss',
   platforms: {
     apple: 'https://podcasts.apple.com/de/podcast/g-laber-podcast/id6791220216',
-    // TODO: direkten open.spotify.com/show/…-Link eintragen, sobald bekannt.
-    spotify: 'https://creators.spotify.com/pod/profile/jana-jansen28/',
+    spotify: 'https://open.spotify.com/show/033Pnbk0HOhbeO0fyBfsCs',
   },
   hosts: [
     {

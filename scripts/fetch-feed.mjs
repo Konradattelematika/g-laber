@@ -10,7 +10,10 @@ import { writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-const FEED_URL = 'https://api.riverside.com/hosting/cJlDQPNZ.rss';
+// Aktueller Feed: Spotify for Creators (Anchor). Der frühere Riverside-Feed
+// (api.riverside.com/hosting/cJlDQPNZ.rss) wurde nach dem Hosting-Wechsel nicht
+// mehr befüllt und blieb bei Folge 5 stehen — nicht wieder darauf zurückgehen.
+const FEED_URL = 'https://anchor.fm/s/1160ba830/podcast/rss';
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '../src/data/episodes.json');
 
 const res = await fetch(FEED_URL);
@@ -67,13 +70,25 @@ const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map(([, block]) => 
     durationSeconds: durationToSeconds(duration),
     description: stripHtml(descriptionHtml),
     audioUrl: enclosure ? unescape(enclosure[1]) : '',
+    episodeType: (tag(block, 'itunes:episodeType') || 'full').toLowerCase(),
     episodeNumber: Number(tag(block, 'itunes:episode')) || null,
   };
 });
 
-// Feed ist neueste zuerst; Episodennummern ggf. aus Reihenfolge ableiten.
-items.forEach((ep, i) => {
-  if (!ep.episodeNumber) ep.episodeNumber = items.length - i;
+// Folgen-Nummern: nur echte Folgen (episodeType "full") werden durchnummeriert.
+// Trailer/Bonus (z. B. kurze Clips) bekommen KEINE Nummer (episodeNumber = null)
+// und werden auf der Seite als "Bonus" ausgewiesen.
+// Der Feed taggt nur die neuesten Folgen mit itunes:episode; ältere nicht. Wir
+// nummerieren die Full-Folgen daher chronologisch (älteste = 1) und übernehmen
+// eine explizite itunes:episode-Nummer nur, wenn sie zur Reihenfolge passt.
+const fullChrono = items
+  .filter((ep) => ep.episodeType === 'full')
+  .sort((a, b) => new Date(a.pubDate) - new Date(b.pubDate));
+fullChrono.forEach((ep, i) => {
+  ep.episodeNumber = i + 1;
+});
+items.forEach((ep) => {
+  if (ep.episodeType !== 'full') ep.episodeNumber = null;
 });
 
 const channelTitle = tag(xml.split('<item>')[0], 'title');
