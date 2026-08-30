@@ -74,5 +74,10 @@ Viewport (app.js setzt `.is-in` via IntersectionObserver). Easing `--ease-expo`
 - [ ] Impressum + Datenschutz mit echten Inhalten füllen (§ 5 DDG / DSGVO)
 - [ ] Direkten `open.spotify.com/show/…`-Link eintragen (aktuell Creators-Profil-Link
       in `src/data/site.ts`), sobald bekannt
-- [ ] Optional: Wöchentlicher Job (loopctl): `npm run fetch-feed` → commit →
-      push → Deploy-Trigger, damit neue Folgen automatisch erscheinen
+- [x] Wöchentlicher Feed-Sync (eingerichtet 2026-08-30): loopctl-Skript-Loop
+      `g-laber-feed`, Do 12:00 Europe/Berlin. `scripts/feed-sync.sh` holt den
+      RSS, committet nur bei echten Episoden-Änderungen (fetchedAt ignoriert),
+      pusht nach `origin/main` und triggert den Coolify-Redeploy inkl. Live-Check.
+      Manuell testen: `./scripts/feed-sync.sh`. Deaktivieren:
+      `loopctl disable g-laber-feed`. Zeitplan: `loops/g-laber-feed/schedule` +
+      `loopctl sync`.
