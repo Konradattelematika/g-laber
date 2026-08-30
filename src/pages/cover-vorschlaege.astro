@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const covers = [
+  {
+    src: '/proposals/hero-mockup-with-wordmark.webp',
+    title: 'Hero-Mockup (mit Schriftzug)',
+    note: 'So könnte die Startseite oben aussehen — breites Motiv als Hintergrund, Schriftzug + Claim links drüber. Das ist der eigentliche Vorschlag.',
+    wide: true,
+  },
+  {
+    src: '/proposals/hero-harbor-wide.webp',
+    title: 'Hafen-Motiv breit (ohne Text)',
+    note: 'Das reine Bild (1536×1024) — für Hero-Hintergrund oder als Vorschaubild beim Teilen (WhatsApp/Social).',
+    wide: true,
+  },
+  {
+    src: '/proposals/cover-harbor-square.webp',
+    title: 'Quadratisches Cover (reich)',
+    note: 'Zwei „labernde" Möwen am Mikro, Leuchtturm, Sonnenuntergang — als Podcast-Cover-Variante.',
+    wide: false,
+  },
+  {
+    src: '/proposals/cover-waves-square.webp',
+    title: 'Minimal-Ikone (Mikro + Wellen)',
+    note: 'Reduziert und plakativ — gut als App-Icon/Favicon oder schlichtes Cover.',
+    wide: false,
+  },
+];
+---
+
+<Layout title="Cover-Vorschläge — G-Laber" noindex>
+  <section class="section">
+    <div class="container">
+      <p class="kicker">Nur für Konrad · nicht öffentlich verlinkt</p>
+      <h1 class="cv-title">Cover-Vorschläge</h1>
+      <p class="cv-intro">
+        KI-generiert im G-Laber-Look (Petrol/Apricot, Riso-Print). Motiv: zwei
+        „labernde" Möwen am Vintage-Mikro vor einem Ostsee-Hafen — maritim +
+        Comedy, augenzwinkernde Anspielung auf euch beide. <strong>Noch nicht
+        live</strong> — sag einfach Bescheid, welches (falls überhaupt) ich als
+        Startseiten-Hintergrund einbauen soll.
+      </p>
+
+      <div class="cv-grid">
+        {covers.map((c) => (
+          <figure class={`cv-card ${c.wide ? 'cv-wide' : ''}`}>
+            <img src={c.src} alt={c.title} loading="lazy" />
+            <figcaption>
+              <strong>{c.title}</strong>
+              <span>{c.note}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <p class="cv-foot">
+        Erzeugt mit OpenAI gpt-image-1 (Higgsfield brauchte einen Key, der nicht
+        auf dem Server lag). Über Higgsfield ginge es auch — dann bräuchte ich
+        deinen API-Key. Zurück zur <a href="/">Startseite</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .cv-title { font-size: var(--display-lg); margin: 0.6rem 0 1rem; }
+  .cv-intro { max-width: 60ch; color: color-mix(in srgb, var(--white) 85%, transparent); margin-bottom: 2.5rem; }
+  .cv-intro strong { color: var(--apricot); }
+  .cv-grid { display: grid; gap: 1.75rem; grid-template-columns: 1fr; }
+  @media (min-width: 48rem) { .cv-grid { grid-template-columns: 1fr 1fr; } }
+  .cv-card {
+    margin: 0;
+    background: var(--petrol-deep);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: clip;
+    box-shadow: var(--shadow-card);
+  }
+  .cv-wide { grid-column: 1 / -1; }
+  .cv-card img { width: 100%; display: block; }
+  .cv-card figcaption { padding: 1.1rem 1.3rem 1.4rem; display: grid; gap: 0.35rem; }
+  .cv-card figcaption strong { font-size: 1.05rem; }
+  .cv-card figcaption span { color: color-mix(in srgb, var(--white) 72%, transparent); font-size: var(--text-sm); }
+  .cv-foot { margin-top: 2.5rem; font-size: var(--text-sm); color: color-mix(in srgb, var(--white) 65%, transparent); }
+  .cv-foot a { color: var(--apricot); }
+</style>
