@@ -1,7 +1,18 @@
 {
-  "fetchedAt": "2026-09-03T12:00:02.152Z",
+  "fetchedAt": "2026-09-10T12:00:01.573Z",
   "channelTitle": "G-Laber Podcast",
   "episodes": [
+    {
+      "title": "Glübirne im Gruselhaus!",
+      "slug": "gluebirne-im-gruselhaus",
+      "pubDate": "Wed, 09 Sep 2026 22:02:00 GMT",
+      "duration": "01:11:02",
+      "durationSeconds": 4262,
+      "description": "In Deutschland brennt noch Licht, aber nicht das Gute. Außer hier! Denn hier bist du wieder bei deinem neuen Wohlfühlpodcast, diesmal sogar mit kulinarischen Raffinessen. Abonnier, kommentier und komm in die Gruppe, denn hier wird Liebe noch groß geschrieben. Aber eins nach dem anderen, denn Roger und Jana empfehlen euch was das Zeug hält Medien um die Ohren. \n\nBeispielsweise wie es hier jemanden umgeschnackselt hat, dann hat hier jemand den gleichen Handwasch-Fehler begangen wie Jana - danke für diesen sachdienlichen Hinweis aus der Community. Und hier haben wir versucht gerade zu rücken, was wir letzte Woche nuklear vergeigt haben. Aber rückblickend ist Jana das nicht gelungen. Wir gehen da nochmal in Klausur. \n\nShoutout auch an sabrina_carpador, die über die Abnehmspritze und den Lebensmittelhandel aufklärt. Gerne mehr davon.\n\nJana geht auch Tour im Herbst, es gibt noch Tickets in Hamburg, Berlin, Hannover, Düsseldorf und Münster. \n\nRoger geht auch auf Tour und dropt andauernd geiles Zeug, bleib auf dem Laufenden.",
+      "audioUrl": "https://anchor.fm/s/1160ba830/podcast/play/125463986/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-9%2F431542119-44100-2-b3347c52f0a75.mp3",
+      "episodeType": "full",
+      "episodeNumber": 9
+    },
     {
       "title": "Kaviar mit Ei oder: Endlich schwanger saufen",
       "slug": "kaviar-mit-ei-oder-endlich-schwanger-saufen",
