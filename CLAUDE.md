@@ -19,7 +19,8 @@ Statischer Astro-Build, kein CMS, kein Tracking, keine Cookies.
   Grau `#c9c4be`
 - Komponenten: `Wordmark` (Offset-Wortbild), `Brush` (Pinsel-Masken), `Marquee`
   (Laufband), `FeaturedEpisode`, `EpisodeRow`, `Player`, `Kinetic`.
-  Geteilte Episoden-Aufbereitung in `src/lib/episode.ts`.
+  Geteilte Episoden-Aufbereitung in `src/lib/episode.ts` (mit Unit-Tests
+  daneben in `episode.test.ts`).
 - Seiten: `index` (One-Pager), `impressum`, `datenschutz` (beide noch
   Platzhalter!) — Rechtstexte nutzen `src/layouts/Legal.astro`
 
@@ -71,6 +72,9 @@ Wurzelelement — beim Bauen neuer Komponenten daran denken.
 
 ## Verifizieren (vor jedem "fertig")
 
+- `npm test` — Unit-Tests der Feed-Aufbereitung (`src/lib/episode.test.ts`,
+  node:test mit Type-Stripping, keine zusätzliche Abhängigkeit). Deckt
+  Bonus-Folgen ohne Nummer, Dauerformate, Zeitzone und Teaser-Split ab.
 - `npm run build && npx astro preview --port 4322`
 - Screenshots: `source scripts/env.sh && node scripts/shot.mjs <url> <breite> <out.png>`
   bzw. `scripts/scroll-shot.mjs <url> <breite> <selektor> <out.png>`
@@ -82,7 +86,8 @@ Wurzelelement — beim Bauen neuer Komponenten daran denken.
   fehlgeschlagene Requests, Überschriften, interne Links + Anker, mobile
   Navigation und schießt Player-Detailbilder.
 - Lighthouse lokal: `npx lighthouse http://localhost:4322/ --chrome-flags="--headless --no-sandbox"`.
-  Stand 2026-09-16 (nach Redesign): 100/100/100/100, LCP 1,9 s, CLS ~0.
+  Stand 2026-09-16 (nach Redesign): 100/100/100/100 (Performance schwankt auf
+  dem VPS zwischen 99 und 100), LCP ~1,9 s, CLS ~0.
 
 ## Deployment (eingerichtet 2026-08-24)
 

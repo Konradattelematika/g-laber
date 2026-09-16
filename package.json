@@ -7,7 +7,8 @@
     "prep-images": "node scripts/prep-images.mjs",
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "node --disable-warning=ExperimentalWarning --experimental-strip-types --test \"src/**/*.test.ts\""
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.5",

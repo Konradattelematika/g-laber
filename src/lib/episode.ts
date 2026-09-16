@@ -15,6 +15,25 @@ export interface Episode {
   episodeType?: string;
 }
 
+/**
+ * "01:11:02" -> "1 Std 11 Min", "00:28:39" -> "28 Min", "10:05:00" -> "10 Std 5 Min".
+ * Bewusst über Zahlen statt über eine Kette von Ersetzungen: sonst bleibt die
+ * führende Null in der Minutenangabe stehen ("1 Std 05 Min").
+ * Der Feed liefert HH:MM:SS, ältere Einträge auch MM:SS.
+ */
+function humanDuration(duration: string) {
+  const parts = duration.split(':').map(Number);
+  const [hours, minutes] = parts.length >= 3 ? parts : [0, parts[0]];
+  if (!Number.isFinite(hours) || !Number.isFinite(minutes)) return duration;
+  return hours ? `${hours} Std ${minutes} Min` : `${minutes} Min`;
+}
+
+/** "2026-09-10" in Europe/Berlin — en-CA liefert genau das ISO-Format. */
+const isoInBerlin = (date: Date) =>
+  new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Europe/Berlin',
+  }).format(date);
+
 export function prepare(episode: Episode) {
   const date = new Date(episode.pubDate);
 
@@ -34,19 +53,17 @@ export function prepare(episode: Episode) {
     /** Zweistellige Nummer als Gestaltungselement, Bonus bekommt einen Stern */
     numeral: isBonus ? '★' : String(episode.episodeNumber).padStart(2, '0'),
     kicker: isBonus ? 'Bonus' : `Folge ${episode.episodeNumber}`,
-    dateISO: date.toISOString().slice(0, 10),
+    // Bewusst Europe/Berlin statt toISOString(): Folgen erscheinen abends UTC,
+    // in Berlin ist dann schon der nächste Tag. Sonst stünde im
+    // datetime-Attribut ein anderer Tag als im sichtbaren Datum daneben.
+    dateISO: isoInBerlin(date),
     dateHuman: date.toLocaleDateString('de-DE', {
       day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Berlin',
     }),
     dateShort: date.toLocaleDateString('de-DE', {
       day: '2-digit', month: '2-digit', year: '2-digit', timeZone: 'Europe/Berlin',
     }),
-    /** "1:25:50" -> "1 Std 25 Min", "28:40" -> "28 Min" */
-    durationHuman: episode.duration
-      .replace(/^00:/, '')
-      .replace(/^0/, '')
-      .replace(/^(\d+):(\d+):\d+$/, '$1 Std $2 Min')
-      .replace(/^(\d+):\d+$/, '$1 Min'),
+    durationHuman: humanDuration(episode.duration),
     /** kurze Anzeige im Player, z. B. "28:40" */
     durationClock: episode.duration.replace(/^00:/, '').replace(/^0(\d)/, '$1'),
     teaser,
