@@ -1,0 +1,128 @@
+---
+/**
+ * Audio-Player im Brand-Look. Markup und data-Attribute sind bewusst
+ * unverändert gegenüber der Vorgängerversion — src/scripts/app.js greift
+ * über [data-player] / [data-play] / [data-seek] darauf zu.
+ */
+import type { PreparedEpisode } from '../lib/episode';
+
+interface Props {
+  episode: PreparedEpisode;
+  /** 'feature' = größerer Player der Titelfolge */
+  size?: 'feature' | 'row';
+}
+const { episode, size = 'row' } = Astro.props;
+---
+<div class:list={['player', `player-${size}`]} data-player>
+  <audio preload="none" src={episode.audioUrl}></audio>
+  <button class="player-toggle" type="button" data-play aria-label={episode.playLabel}>
+    <svg class="icon-play" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.53.85l10.2-6.5a1 1 0 0 0 0-1.7L9.53 4.65A1 1 0 0 0 8 5.5Z"/></svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+  </button>
+  <div class="player-track">
+    <input
+      type="range" min="0" max={episode.durationSeconds} value="0" step="1"
+      data-seek aria-label={`Abspielposition in „${episode.title}“`}
+    />
+    <div class="player-times" aria-hidden="true">
+      <span data-current>0:00</span>
+      <span data-total>{episode.durationClock}</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .player {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* Play/Pause: harter Poster-Button statt weicher Kreis */
+  .player-toggle {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    padding: 0;
+    border: 3px solid var(--black);
+    border-radius: 2px;
+    background: var(--pink);
+    color: var(--black);
+    box-shadow: 5px 5px 0 var(--black);
+    transition: transform 0.16s var(--ease-out), background 0.16s, box-shadow 0.16s;
+  }
+  .player-feature .player-toggle { width: 4rem; height: 4rem; }
+  .player-toggle:hover {
+    background: var(--orange);
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--black);
+  }
+  .player-toggle:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--black); }
+  .icon-play { translate: 2px 0; }
+  .icon-pause { display: none; }
+  .player.is-playing .icon-pause { display: block; }
+  .player.is-playing .icon-play { display: none; }
+
+  /* Auf dunklem Grund bekommt der Button einen weißen Schlagschatten */
+  :global(.on-dark) .player-toggle { box-shadow: 5px 5px 0 var(--white); }
+  :global(.on-dark) .player-toggle:hover { box-shadow: 7px 7px 0 var(--white); }
+  :global(.on-dark) .player-toggle:active { box-shadow: 2px 2px 0 var(--white); }
+
+  .player-track { flex: 1; min-width: 0; display: grid; gap: 0.3rem; }
+  .player-times {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-soft);
+  }
+  :global(.on-dark) .player-times { color: var(--gray-dim); }
+
+  /* Fortschrittsleiste: eckig, zweifarbig — Pink gespielt, Rest Schwarz/Weiß */
+  input[type='range'] {
+    --fill: 0%;
+    width: 100%;
+    height: 2rem;            /* großzügiges Touch-Target */
+    margin: 0;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  input[type='range']::-webkit-slider-runnable-track {
+    height: 16px;
+    border: 2px solid var(--black);
+    background: linear-gradient(to right, var(--pink) var(--fill), transparent var(--fill));
+  }
+  input[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 26px;
+    margin-top: -5px;
+    border: 2px solid var(--black);
+    border-radius: 0;
+    background: var(--orange);
+    transition: transform 0.15s;
+  }
+  input[type='range']:hover::-webkit-slider-thumb { transform: scaleY(1.15); }
+  input[type='range']::-moz-range-track {
+    height: 16px;
+    border: 2px solid var(--black);
+    background: transparent;
+  }
+  input[type='range']::-moz-range-progress { height: 16px; background: var(--pink); }
+  input[type='range']::-moz-range-thumb {
+    width: 10px;
+    height: 24px;
+    border: 2px solid var(--black);
+    border-radius: 0;
+    background: var(--orange);
+  }
+  :global(.on-dark) input[type='range']::-webkit-slider-runnable-track { border-color: var(--white); }
+  :global(.on-dark) input[type='range']::-webkit-slider-thumb { border-color: var(--white); }
+  :global(.on-dark) input[type='range']::-moz-range-track { border-color: var(--white); }
+  :global(.on-dark) input[type='range']::-moz-range-thumb { border-color: var(--white); }
+</style>

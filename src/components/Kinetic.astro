@@ -17,7 +17,9 @@ interface Props {
   startIndex?: number;
 }
 
-const { text, class: cls = '', reveal = false, scroll = false, startIndex = 0 } = Astro.props;
+// `rest` reicht Astros Scope-Attribut der aufrufenden Komponente weiter —
+// ohne das greifen dort definierte Styles auf der Überschrift nicht.
+const { text, class: cls = '', reveal = false, scroll = false, startIndex = 0, ...rest } = Astro.props;
 
 let idx = startIndex;
 const words = text.split(' ').map((word) => ({
@@ -25,7 +27,7 @@ const words = text.split(' ').map((word) => ({
 }));
 ---
 
-<span class:list={['kinetic', { reveal, scroll }, cls]}>
+<span {...rest} class:list={['kinetic', { reveal, scroll }, cls]}>
   <span class="sr-only">{text}</span>
   {words.map((word, wi) => (
     <>

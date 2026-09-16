@@ -1,6 +1,9 @@
-// G-Laber — Player-Logik + Scroll-Reveals (kein Framework, ~2 KB)
+// G-Laber — Audio-Player, mobile Navigation, Scroll-Reveals.
+// Kein Framework, Vanilla, läuft erst nach dem Parsen (Astro lädt als Modul).
 
-// ---------- Audio-Player ----------
+/* ------------------------------------------------------------------
+   Audio-Player
+   ------------------------------------------------------------------ */
 const players = [...document.querySelectorAll('[data-player]')];
 
 const fmt = (s) => {
@@ -70,7 +73,47 @@ for (const root of players) {
   setFill();
 }
 
-// ---------- Scroll-Reveals ----------
+/* ------------------------------------------------------------------
+   Mobile Navigation (Vollbild-Overlay)
+   ------------------------------------------------------------------ */
+const navToggle = document.querySelector('[data-nav-toggle]');
+const navOverlay = document.querySelector('[data-nav-overlay]');
+
+if (navToggle && navOverlay) {
+  const setNav = (open) => {
+    navToggle.setAttribute('aria-expanded', String(open));
+    navOverlay.hidden = !open;
+    // Hintergrund nicht mitscrollen lassen, solange das Menü offen ist
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) navOverlay.querySelector('a')?.focus();
+  };
+
+  navToggle.addEventListener('click', () => {
+    setNav(navToggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  // Nach dem Sprung zum Anker schließen
+  navOverlay.addEventListener('click', (e) => {
+    if (e.target.closest('a')) setNav(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+      setNav(false);
+      navToggle.focus();
+    }
+  });
+
+  // Beim Wechsel auf Desktop-Breite aufräumen, sonst bleibt body gesperrt
+  const desktop = matchMedia('(min-width: 52.0625rem)');
+  desktop.addEventListener('change', (e) => {
+    if (e.matches) setNav(false);
+  });
+}
+
+/* ------------------------------------------------------------------
+   Scroll-Reveals
+   ------------------------------------------------------------------ */
 if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
   // Block-Reveals (ganze Elemente faden hoch)
   const io = new IntersectionObserver(
@@ -82,14 +125,14 @@ if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
         }
       }
     },
-    { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.05 }
   );
   document.querySelectorAll('[data-reveal]').forEach((el) => {
     // sanfter Stagger innerhalb einer Gruppe
     const group = el.closest('[data-reveal-group]');
     if (group) {
       const idx = [...group.querySelectorAll('[data-reveal]')].indexOf(el);
-      el.style.setProperty('--reveal-delay', `${Math.min(idx * 0.09, 0.45)}s`);
+      el.style.setProperty('--reveal-delay', `${Math.min(idx * 0.08, 0.4)}s`);
     }
     io.observe(el);
   });
@@ -104,7 +147,7 @@ if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
         }
       }
     },
-    { rootMargin: '0px 0px -12% 0px', threshold: 0.2 }
+    { rootMargin: '0px 0px -10% 0px', threshold: 0.2 }
   );
   document.querySelectorAll('.kinetic.scroll').forEach((el) => kio.observe(el));
 } else {

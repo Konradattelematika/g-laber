@@ -1,0 +1,58 @@
+---
+/**
+ * Rahmen für die Rechtstexte (Impressum, Datenschutz): schmale Lesespalte
+ * auf Off-White, damit lange Fließtexte lesbar bleiben — der Rest der Seite
+ * (Header, Footer, Farben, Typo) kommt unverändert aus Layout.astro.
+ */
+import Layout from './Layout.astro';
+import Brush from '../components/Brush.astro';
+
+interface Props {
+  title: string;
+  heading: string;
+  kicker?: string;
+}
+const { title, heading, kicker } = Astro.props;
+---
+<Layout title={title} noindex>
+  <section class="section legal on-paper">
+    <div class="container legal-inner">
+      <header class="legal-head">
+        {kicker && <p class="label">{kicker}</p>}
+        <h1 class="legal-title">{heading}</h1>
+        <Brush variant="stroke" color="var(--orange)" class="legal-rule" />
+      </header>
+      <div class="legal-body">
+        <slot />
+      </div>
+      <p class="legal-back"><a class="link-brush" href="/">Zurück zur Startseite</a></p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal-inner { max-width: 48rem; }
+  .legal-head { display: grid; gap: 0.75rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .legal-title { font-size: var(--display-lg); }
+  .legal-rule { height: 0.85rem; max-width: 18rem; }
+
+  .legal-body { display: grid; gap: 1.1rem; }
+  .legal-body :global(h2) {
+    font-size: var(--display-md);
+    margin-top: 2rem;
+  }
+  .legal-body :global(a) { font-weight: 700; }
+  .legal-body :global(ul) { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.4rem; }
+
+  /* Platzhalter-Kasten: bewusst auffällig, damit offene Texte nicht untergehen */
+  .legal-body :global(.todo) {
+    padding: 1.1rem 1.35rem;
+    border: 3px solid var(--black);
+    background: var(--orange);
+    color: var(--black);
+    box-shadow: 0.5rem 0.5rem 0 var(--black);
+    font-weight: 600;
+  }
+
+  .legal-back { margin-top: clamp(2.5rem, 5vw, 4rem); }
+</style>

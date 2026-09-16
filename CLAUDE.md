@@ -9,11 +9,46 @@ Statischer Astro-Build, kein CMS, kein Tracking, keine Cookies.
 ## Stack & Struktur
 
 - **Astro 5** (statisch), kein Framework-JS — nur `src/scripts/app.js`
-  (Player + Scroll-Reveals, Vanilla, ~2 KB)
-- Fonts self-hosted: **Anton** (Display, wie Cover-Typo) + **Inter Variable** (Body)
-- Design-Tokens in `src/styles/global.css`; Palette aus dem Podcast-Cover
-  gesampelt: Petrol `#01516a`, Apricot `#fcc5a3`, Burgund `#6e2b2f`, Paper `#f7f1e8`
-- Seiten: `index` (One-Pager), `impressum`, `datenschutz` (beide noch Platzhalter!)
+  (Player + mobile Navigation + Scroll-Reveals, Vanilla, ~3 KB)
+- Fonts self-hosted: **Bebas Neue** (Display, exakt die Cover-Schrift) +
+  **Inter Variable** (Body). Bebas liegt unter `public/fonts/` (aus
+  `@fontsource/bebas-neue` kopiert), damit `global.css` das `@font-face` selbst
+  setzt und `Layout.astro` die Datei preloaden kann.
+- Design-Tokens in `src/styles/global.css`; Palette aus dem Cover gesampelt:
+  Pink `#f875c4`, Orange `#ff751f`, Schwarz `#0b0b0c`, Off-White `#f4efe8`,
+  Grau `#c9c4be`
+- Komponenten: `Wordmark` (Offset-Wortbild), `Brush` (Pinsel-Masken), `Marquee`
+  (Laufband), `FeaturedEpisode`, `EpisodeRow`, `Player`, `Kinetic`.
+  Geteilte Episoden-Aufbereitung in `src/lib/episode.ts`.
+- Seiten: `index` (One-Pager), `impressum`, `datenschutz` (beide noch
+  Platzhalter!) — Rechtstexte nutzen `src/layouts/Legal.astro`
+
+## Design-System (Redesign 16.09.2026, Quelle: neues Cover)
+
+Das Podcast-Cover ist die Source of Truth. Fünf Regeln, an die sich jede neue
+Sektion halten muss (stehen auch im Kopf von `global.css`):
+
+1. Nur Pink, Orange, Schwarz, Weiß/Off-White — keine weiteren Farben.
+2. Pink/Orange sind **Flächen mit schwarzer Schrift** oder **Text auf Schwarz**.
+   Pinke/orange Schrift auf Off-White ist verboten (Kontrast < 3:1).
+3. Typo plakativ: Bebas Neue, sehr groß, eng, Versalien; Body bleibt Inter.
+4. Harte Kanten — keine Pillen, kaum Radien, dafür harte Offset-Schatten
+   (`box-shadow: .5rem .5rem 0 …`).
+5. Pinselstriche sind Akzent, nicht Tapete: höchstens ein Element je Sektion.
+
+- **Offset-Look des Covers**: Utility-Klassen `.offset` (weiß auf dunkel) und
+  `.offset-ink` (schwarz auf hell) in `global.css`. Nur für sehr große Grade.
+- **Sektions-Tonalität** über `.on-dark` / `.on-paper` / `.on-pink` /
+  `.on-orange` — Buttons und Player ziehen darüber automatisch mit.
+- **Pinsel-Assets**: `scripts/make-brushes.mjs` erzeugt deterministisch
+  `public/img/brush-{stroke,slab,patch}.svg` als schwarze Formen; die Farbe
+  kommt in CSS über `mask-image` + `background: currentColor`
+  (Komponente `Brush.astro`). Keine externe Grafik-Library.
+
+**Astro-Falle:** Scoped Styles einer Seite greifen NICHT auf dem Wurzelelement
+einer Kindkomponente, solange diese die restlichen Props nicht durchreicht.
+`Brush`, `Wordmark` und `Kinetic` machen deshalb `{...rest}` auf ihr
+Wurzelelement — beim Bauen neuer Komponenten daran denken.
 
 ## Inhalte pflegen
 
@@ -25,18 +60,29 @@ Statischer Astro-Build, kein CMS, kein Tracking, keine Cookies.
   blieb bei Folge 5 stehen. Trailer/Bonus-Episoden (itunes:episodeType ≠ full)
   bekommen keine Folgennummer und erscheinen als „Bonus".
 - **Links/Texte/Hosts**: zentral in `src/data/site.ts`.
-- **Bilder**: `npm run prep-images` erzeugt alles aus `scripts/cover-source.png`
-  (Cover-Varianten, Host-Crops, OG-Bild, Touch-Icon).
+- **Bilder/Assets**: `npm run prep-images` erzeugt alles aus
+  `scripts/cover-source.png` (2000×2000, das aktuelle Cover): Cover-Varianten,
+  breiter Fotostreifen `hosts-wide-*` (Typo weggeschnitten), Host-Portraits,
+  Pinsel-SVGs, OG-Bild, Favicon, Touch-Icon — und kopiert die Bebas-woff2 nach
+  `public/fonts/`. Neues Cover einspielen = `scripts/cover-source.png`
+  ersetzen und das Skript laufen lassen.
+- **Favicon/OG mit echter Bebas-Typo**: `scripts/lib/bebas.mjs` wandelt die
+  woff2 über fontkit in SVG-Pfade — sharp/librsvg kennt keine Webfonts.
 
 ## Verifizieren (vor jedem "fertig")
 
 - `npm run build && npx astro preview --port 4322`
-- Screenshots 390 px + 1440 px über die tryout-tour-Helfer
-  (`~/claude-cloud/projects/ROGER/tryout-tour/scripts/{env.sh,shot.mjs,scroll-shot.mjs}`,
-  Headless-Chromium via `source env.sh`). Achtung: Full-Page-Shots zeigen
-  lazy-geladene Bilder unterhalb des Viewports leer — für Sektionen scroll-shot nutzen.
+- Screenshots: `source scripts/env.sh && node scripts/shot.mjs <url> <breite> <out.png>`
+  bzw. `scripts/scroll-shot.mjs <url> <breite> <selektor> <out.png>`
+  (playwright-core ist devDependency, Chromium über `env.sh`). Achtung:
+  Full-Page-Shots zeigen lazy-geladene Bilder unterhalb des Viewports leer —
+  für Sektionen scroll-shot nutzen.
+- Abnahme-Check: `source scripts/env.sh && node scripts/check-site.mjs`
+  (Preview muss laufen) prüft Overflow bei 1440/1024/768/390, Konsolenfehler,
+  fehlgeschlagene Requests, Überschriften, interne Links + Anker, mobile
+  Navigation und schießt Player-Detailbilder.
 - Lighthouse lokal: `npx lighthouse http://localhost:4322/ --chrome-flags="--headless --no-sandbox"`.
-  Stand 2026-08-24: 100/100/100/100, LCP 1,7 s, CLS 0.
+  Stand 2026-09-16 (nach Redesign): 100/100/100/100, LCP 1,9 s, CLS ~0.
 
 ## Deployment (eingerichtet 2026-08-24)
 
@@ -70,12 +116,17 @@ Viewport (app.js setzt `.is-in` via IntersectionObserver). Easing `--ease-expo`
       kein www-Record), Let's-Encrypt-Zertifikat gültig bis 2026-11-24.
 - [x] Host-Fotos: echte Studio-/Streetfotos (Jana + Roger), Jana-Ticketlink
       (janajansen.de/items), kinetische Typo — alles live (Stand 2026-08-28).
-- [ ] **Cover-Entscheidung**: KI-Cover-Vorschläge liegen in `proposals/`
-      (Hero-Mockup `hero-mockup-with-wordmark.webp`). Wenn Konrad zustimmt →
-      breites Motiv als Hero-Hintergrund einbauen (Anleitung in proposals/README).
-      Erzeugt mit gpt-image-1, weil Higgsfield-Key fehlt; Higgsfield-Runner
-      liegt bereit (`scripts/higgsfield-cover.mjs` + `cover-prompts.json`).
-- [ ] Impressum + Datenschutz mit echten Inhalten füllen (§ 5 DDG / DSGVO)
+- [x] **Cover-Entscheidung erledigt (16.09.2026)**: Konrad hat ein echtes,
+      professionell gestaltetes Cover geliefert (Canva, Bebas Neue, Foto von
+      Jana + Roger). Die komplette Website wurde darauf umgebaut. Die alten
+      KI-Cover-Vorschläge (`proposals/`, `public/proposals/`, Seite
+      `/cover-vorschlaege`, `scripts/higgsfield-cover.mjs`, `cover-prompts.json`)
+      sind damit hinfällig und wurden entfernt — Stand steckt in der
+      Git-Historie.
+- [ ] Impressum + Datenschutz mit echten Inhalten füllen (§ 5 DDG / DSGVO).
+      Fehlt konkret: Name + ladungsfähige Anschrift der verantwortlichen Person.
+      Die Seiten sind gestaltet und vorstrukturiert, der Platzhalter-Kasten
+      (`.todo`) weist sichtbar darauf hin.
 - [x] Direkter Spotify-Show-Link eingetragen (2026-08-30):
       `open.spotify.com/show/033Pnbk0HOhbeO0fyBfsCs` in `src/data/site.ts`
 - [x] Wöchentlicher Feed-Sync (eingerichtet 2026-08-30): loopctl-Skript-Loop

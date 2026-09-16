@@ -1,0 +1,57 @@
+---
+/**
+ * Laufband im Poster-Stil: trennt zwei Sektionen und bringt die „laute“
+ * Tonalität des Covers in die Fläche. Der Text wird doppelt gerendert, damit
+ * die Schleife nahtlos läuft; die Kopie ist aria-hidden.
+ * Ohne Bewegung (prefers-reduced-motion) steht das Band einfach still.
+ */
+interface Props {
+  items: string[];
+  /** 'pink' | 'orange' | 'black' */
+  tone?: 'pink' | 'orange' | 'black';
+  /** Laufrichtung umkehren */
+  reverse?: boolean;
+}
+const { items, tone = 'pink', reverse = false } = Astro.props;
+const row = items.join(' · ');
+---
+<div class:list={['marquee', `tone-${tone}`, { reverse }]}>
+  <div class="marquee-track">
+    <span class="marquee-item">{row}</span>
+    <span class="marquee-item" aria-hidden="true">{row}</span>
+  </div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    border-block: 3px solid var(--black);
+    padding-block: 0.55rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.4vw, 2.4rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    user-select: none;
+  }
+  .tone-pink { background: var(--pink); color: var(--black); }
+  .tone-orange { background: var(--orange); color: var(--black); }
+  .tone-black { background: var(--black); color: var(--white); border-color: var(--pink); }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+  }
+  .marquee-item { padding-inline-end: 1.2ch; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .marquee-track { animation: slide 38s linear infinite; }
+    .reverse .marquee-track { animation-direction: reverse; }
+    /* Beim Drüberfahren anhalten — sonst lässt sich der Text nicht lesen. */
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+  }
+  @keyframes slide {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+</style>

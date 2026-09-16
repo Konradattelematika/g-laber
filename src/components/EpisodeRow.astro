@@ -1,0 +1,108 @@
+---
+/**
+ * Archiv-Zeile: Magazin-Layout statt Karte. Die Folgennummer ist das
+ * dominante grafische Element und füllt sich beim Hover von Outline auf Pink.
+ */
+import Player from './Player.astro';
+import { prepare, type Episode } from '../lib/episode';
+
+interface Props { episode: Episode }
+const ep = prepare(Astro.props.episode);
+---
+<article class="row on-dark" id={ep.anchorId} data-reveal>
+  <p class="row-num" aria-hidden="true">{ep.numeral}</p>
+
+  <div class="row-main">
+    <h3 class="row-title">{ep.title}</h3>
+    <p class="row-meta">
+      <span>{ep.kicker}</span>
+      <span class="sep" aria-hidden="true">/</span>
+      <time datetime={ep.dateISO}>{ep.dateHuman}</time>
+      <span class="sep" aria-hidden="true">/</span>
+      <span>{ep.durationHuman}</span>
+    </p>
+    <p class="row-teaser">{ep.teaser}</p>
+    {ep.more && (
+      <details class="more">
+        <summary><span>Mehr lesen</span></summary>
+        <p>{ep.more}</p>
+      </details>
+    )}
+    <Player episode={ep} />
+  </div>
+</article>
+
+<style>
+  .row {
+    display: grid;
+    gap: 0.4rem clamp(1rem, 3vw, 2.5rem);
+    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+    border-top: 3px solid var(--line);
+  }
+  .row:last-child { border-bottom: 3px solid var(--line); }
+  @media (min-width: 48rem) {
+    .row { grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr); align-items: start; }
+  }
+
+  .row-num {
+    font-family: var(--font-display);
+    font-size: clamp(3.25rem, 9vw, 6.5rem);
+    line-height: 0.78;
+    color: var(--pink);
+    transition: color 0.3s var(--ease-out), transform 0.3s var(--ease-spring);
+  }
+  /* Outline als Grundzustand — gefüllt wird erst beim Hover. */
+  @supports (-webkit-text-stroke: 2px currentColor) {
+    .row-num {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--pink);
+      transition: -webkit-text-stroke-color 0.3s, color 0.3s var(--ease-out), transform 0.3s var(--ease-spring);
+    }
+    .row:hover .row-num, .row:focus-within .row-num {
+      color: var(--orange);
+      -webkit-text-stroke-color: var(--orange);
+    }
+  }
+  .row:hover .row-num, .row:focus-within .row-num { transform: translateY(-4px) rotate(-2deg); }
+
+  .row-main { display: grid; gap: 0.75rem; justify-items: start; min-width: 0; }
+
+  .row-title {
+    font-size: clamp(1.75rem, 4.2vw, 3.1rem);
+    line-height: 0.88;
+    max-width: 22ch;
+    transition: transform 0.3s var(--ease-out), color 0.25s;
+  }
+  .row:hover .row-title, .row:focus-within .row-title { transform: translateX(6px); color: var(--pink); }
+
+  .row-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: var(--text-xs);
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-dim);
+  }
+  .sep { color: var(--orange); }
+
+  .row-teaser { max-width: 60ch; color: var(--gray); }
+
+  .more summary {
+    cursor: pointer;
+    list-style: none;
+    font-size: var(--text-sm);
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding-block: 0.35rem;
+  }
+  .more summary::-webkit-details-marker { display: none; }
+  .more summary span { border-bottom: 3px solid var(--pink); padding-bottom: 2px; }
+  .more summary span::after { content: ' ↓'; }
+  .more[open] summary span::after { content: ' ↑'; }
+  .more p { margin-top: 0.6rem; max-width: 60ch; white-space: pre-line; color: var(--gray); }
+
+  .row :global(.player) { width: min(100%, 30rem); margin-top: 0.4rem; }
+</style>

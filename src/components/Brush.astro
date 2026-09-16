@@ -1,0 +1,25 @@
+---
+/**
+ * Pinselstrich aus dem Brand-System. Die SVGs unter /img/brush-*.svg sind reine
+ * Formen — die Farbe kommt über `color` (die Klasse .brush nutzt currentColor
+ * als background hinter der Maske), damit derselbe Strich in Pink, Orange,
+ * Schwarz oder Weiß funktioniert. Rein dekorativ, daher aria-hidden.
+ */
+interface Props {
+  variant?: 'stroke' | 'slab' | 'patch';
+  /** CSS-Farbwert, üblich: var(--pink) / var(--orange) */
+  color?: string;
+  class?: string;
+  /** zusätzliche Inline-Styles (Position, Größe, Rotation) */
+  style?: string;
+}
+// `rest` transportiert u. a. Astros Scope-Attribut (data-astro-cid-…) der
+// aufrufenden Komponente — ohne das greifen dort definierte Styles nicht.
+const { variant = 'stroke', color = 'var(--pink)', class: cls = '', style = '', ...rest } = Astro.props;
+---
+<span
+  {...rest}
+  class:list={['brush', `brush-${variant}`, cls]}
+  style={`color:${color};${style}`}
+  aria-hidden="true"
+></span>
