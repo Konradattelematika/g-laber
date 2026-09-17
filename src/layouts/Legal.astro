@@ -14,7 +14,7 @@ interface Props {
 }
 const { title, heading, kicker } = Astro.props;
 ---
-<Layout title={title} noindex>
+<Layout title={title}>
   <section class="section legal on-paper">
     <div class="container legal-inner">
       <header class="legal-head">
@@ -52,6 +52,18 @@ const { title, heading, kicker } = Astro.props;
     color: var(--black);
     box-shadow: 0.5rem 0.5rem 0 var(--black);
     font-weight: 600;
+  }
+
+  /* Einleitungssatz etwas größer als der Fließtext */
+  .legal-body :global(.legal-lead) { font-size: var(--text-lg); }
+
+  .legal-body :global(.legal-date) {
+    margin-top: 2rem;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
   }
 
   .legal-back { margin-top: clamp(2.5rem, 5vw, 4rem); }

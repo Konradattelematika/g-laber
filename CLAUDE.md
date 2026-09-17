@@ -128,16 +128,30 @@ Viewport (app.js setzt `.is-in` via IntersectionObserver). Easing `--ease-expo`
       `/cover-vorschlaege`, `scripts/higgsfield-cover.mjs`, `cover-prompts.json`)
       sind damit hinfällig und wurden entfernt — Stand steckt in der
       Git-Historie.
-- [ ] Impressum + Datenschutz mit echten Inhalten füllen (§ 5 DDG / DSGVO).
-      Fehlt konkret: Name + ladungsfähige Anschrift der verantwortlichen Person.
-      Die Seiten sind gestaltet und vorstrukturiert, der Platzhalter-Kasten
-      (`.todo`) weist sichtbar darauf hin.
+- [x] **Impressum + Datenschutz gefüllt (17.09.2026)**: Anbieter ist dieselbe
+      Person/Firma wie beim Shop g-maltes.de — Roger G, Inhaber Gregor Kurtz,
+      Friedrichshöhe 3, 18059 Rostock. Die Daten stehen jetzt zentral in
+      `site.legal` (`src/data/site.ts`). Beide Seiten sind indexierbar (kein
+      noindex mehr) und in `public/sitemap.xml` eingetragen.
+      Der Datenschutztext wurde NICHT vom Shop übernommen: der ist
+      shop-spezifisch (Shopify, Klarna, DHL, Google Analytics, Facebook Pixel,
+      Cookie-Banner) und beschreibt Verarbeitungen, die es hier gar nicht gibt.
+      Stattdessen ein eigener Text für diese statische Seite.
+      **Offen für Konrad:** g-maltes.de nennt im Impressum „Friedrichshöhe 3“,
+      in der Datenschutzerklärung aber „Platz d. Freundschaft 11-13“. Hier steht
+      die Impressums-Adresse (§ 5 DDG ist dafür maßgeblich) — welche stimmt,
+      muss er klären und ggf. auch im Shop korrigieren. Eine USt-IdNr. ist
+      nirgends angegeben; falls vorhanden, gehört sie ins Impressum.
 - [x] Direkter Spotify-Show-Link eingetragen (2026-08-30):
       `open.spotify.com/show/033Pnbk0HOhbeO0fyBfsCs` in `src/data/site.ts`
 - [x] Wöchentlicher Feed-Sync (eingerichtet 2026-08-30): loopctl-Skript-Loop
       `g-laber-feed`, Do 12:00 Europe/Berlin. `scripts/feed-sync.sh` holt den
       RSS, committet nur bei echten Episoden-Änderungen (fetchedAt ignoriert),
       pusht nach `origin/main` und triggert den Coolify-Redeploy inkl. Live-Check.
+      Das Skript arbeitet NUR, wenn das Repo auf `main` steht — sonst bricht es
+      ab (am 17.09.2026 hat es in einen Feature-Branch committet, während
+      `git push origin main` das unveränderte main pushte und der Deploy die
+      alte Seite baute). Repo also nicht auf einem Branch stehen lassen.
       Manuell testen: `./scripts/feed-sync.sh`. Deaktivieren:
       `loopctl disable g-laber-feed`. Zeitplan: `loops/g-laber-feed/schedule` +
       `loopctl sync`.

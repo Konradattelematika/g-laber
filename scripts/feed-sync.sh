@@ -31,6 +31,15 @@ cd "$REPO" || { echo "$(date '+%F %T')  Repo nicht gefunden: $REPO" >&2; exit 1;
 exec 9>/tmp/.g-laber-feed-sync.lock
 flock -n 9 || { echo "$(date '+%F %T')  läuft bereits — übersprungen."; exit 0; }
 
+# Nur auf main arbeiten. Sonst committet der Loop in einen Feature-Branch,
+# während `git push origin main` das unveränderte main pusht — der Deploy baut
+# dann die alte Seite (passiert am 17.09.2026 genau so).
+BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+if [ "$BRANCH" != "main" ]; then
+  echo "$(date '+%F %T')  feed-sync: Repo steht auf Branch '$BRANCH' statt main — übersprungen, nichts committet." >&2
+  exit 0
+fi
+
 # Env für COOLIFY_API_TOKEN
 [ -f "$HOME/claude-cloud/env" ] && { set -a; . "$HOME/claude-cloud/env"; set +a; }
 

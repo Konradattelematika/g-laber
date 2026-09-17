@@ -40,6 +40,24 @@ export const site = {
     },
   ],
   production: { label: 'Platte Comedy', url: 'https://www.instagram.com/platte.comedy/' },
+
+  /**
+   * Anbieter- und Verantwortlichen-Angaben für Impressum und Datenschutz.
+   * Identisch mit dem Shop g-maltes.de — dieselbe Person, dieselbe Firma.
+   * Anschrift aus dem dortigen Impressum (§ 5 DDG ist dafür die maßgebliche
+   * Quelle; die Datenschutzseite des Shops nennt abweichend „Platz d.
+   * Freundschaft 11-13“ — das ist dort zu klären).
+   */
+  legal: {
+    company: 'Roger G',
+    owner: 'Gregor Kurtz',
+    street: 'Friedrichshöhe 3',
+    postalCode: '18059',
+    city: 'Rostock',
+    country: 'Deutschland',
+    /** Stand der Rechtstexte, wird auf den Seiten ausgewiesen */
+    updated: '17. September 2026',
+  },
 };
 
 /** Host per id holen — die Reihenfolge im Array ist gestalterisch, nicht stabil. */

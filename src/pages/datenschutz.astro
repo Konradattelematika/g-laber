@@ -1,44 +1,83 @@
 ---
 import Legal from '../layouts/Legal.astro';
 import { site } from '../data/site';
+
+const { legal } = site;
 ---
 
 <Legal title="Datenschutz — G-Laber Podcast" heading="Datenschutz" kicker="Kleingedrucktes">
-  <p class="todo">
-    Platzhalter — eine vollständige, DSGVO-konforme Datenschutzerklärung fehlt
-    noch (Verantwortlicher, Rechtsgrundlagen, Speicherdauer, Betroffenenrechte,
-    Beschwerderecht bei der Aufsichtsbehörde).
+  <p class="legal-lead">
+    Diese Seite ist bewusst sparsam gebaut: statisches HTML, keine Cookies, kein
+    Tracking, keine Analyse-Werkzeuge, keine externen Schriften oder CDNs. Was
+    trotzdem an Daten anfällt, steht hier.
   </p>
 
-  <h2>Was diese Seite technisch tut</h2>
-  <ul>
-    <li>
-      <strong>Keine Cookies, kein Tracking, keine Analyse.</strong> Die Seite ist
-      statisch ausgeliefertes HTML; es werden keine Besucherprofile gebildet.
-    </li>
-    <li>
-      <strong>Schriften und Bilder</strong> liegen auf demselben Server — es
-      werden keine externen Font- oder CDN-Dienste eingebunden.
-    </li>
-    <li>
-      <strong>Server-Logs:</strong> Der Hoster protokolliert beim Abruf technisch
-      notwendige Daten (IP-Adresse, Zeitpunkt, abgerufene Datei, Browserkennung).
-    </li>
-    <li>
-      <strong>Audio-Player:</strong> Erst beim Klick auf „Abspielen“ wird die
-      Audiodatei von Spotify for Creators (anchor.fm) geladen. Dabei erfährt
-      dieser Dienst eure IP-Adresse. Ohne Klick passiert nichts — der Player lädt
-      mit <code>preload="none"</code>.
-    </li>
-    <li>
-      <strong>Externe Links</strong> zu Spotify, Apple Podcasts, Instagram und den
-      Ticket-/Merch-Shops führen zu Angeboten Dritter mit eigenen
-      Datenschutzbestimmungen.
-    </li>
-  </ul>
-
-  <h2>Fragen?</h2>
+  <h2>Verantwortlicher</h2>
   <p>
-    Schreibt an <a href={`mailto:${site.email}`}>{site.email}</a>.
+    {legal.company}, Inhaber {legal.owner}<br />
+    {legal.street}<br />
+    {legal.postalCode} {legal.city}<br />
+    {legal.country}<br />
+    E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a>
   </p>
+  <p>Ein Datenschutzbeauftragter ist nicht bestellt.</p>
+
+  <h2>Aufruf der Website (Server-Logfiles)</h2>
+  <p>
+    Beim Abruf der Seite verarbeitet unser Hoster technisch notwendige
+    Zugriffsdaten: IP-Adresse, Datum und Uhrzeit, die abgerufene Datei, die
+    übertragene Datenmenge, Statuscode sowie Browser- und Betriebssystemkennung.
+    Das ist nötig, um die Seite auszuliefern und den Betrieb sicher und stabil zu
+    halten. Rechtsgrundlage ist unser berechtigtes Interesse an einem
+    funktionsfähigen Angebot (Art. 6 Abs. 1 lit. f DSGVO). Die Daten werden nicht
+    mit anderen Quellen zusammengeführt und spätestens nach sieben Tagen
+    gelöscht.
+  </p>
+
+  <h2>Audio-Player</h2>
+  <p>
+    Die Folgen liegen nicht auf diesem Server, sondern bei Spotify for Creators
+    (anchor.fm). Der Player lädt mit <code>preload="none"</code> — solange ihr
+    nicht auf „Abspielen“ klickt, wird keine Verbindung dorthin aufgebaut. Erst
+    mit dem Klick wird die Audiodatei abgerufen; dabei erfährt der Dienst eure
+    IP-Adresse und übliche Verbindungsdaten. Rechtsgrundlage ist euer aktives
+    Abspielen bzw. unser berechtigtes Interesse an der Bereitstellung des
+    Podcasts (Art. 6 Abs. 1 lit. f DSGVO). Anbieter ist die Spotify AB,
+    Regeringsgatan 19, 111 53 Stockholm, Schweden.
+  </p>
+
+  <h2>Kontakt per E-Mail</h2>
+  <p>
+    Wenn ihr uns schreibt, verarbeiten wir eure Angaben, um die Anfrage zu
+    beantworten (Art. 6 Abs. 1 lit. f DSGVO, bei vertraglichen Anliegen
+    Art. 6 Abs. 1 lit. b DSGVO). Ein Kontaktformular gibt es hier nicht. Wir
+    löschen die Nachrichten, sobald sie erledigt sind und keine gesetzlichen
+    Aufbewahrungspflichten entgegenstehen.
+  </p>
+
+  <h2>Links zu anderen Anbietern</h2>
+  <p>
+    Von dieser Seite führen Links zu Spotify, Apple Podcasts, dem RSS-Feed,
+    Instagram sowie zu Ticket- und Merch-Shops. Erst wenn ihr einen dieser Links
+    anklickt, werden Daten an den jeweiligen Anbieter übertragen — dort gelten
+    dessen eigene Datenschutzbestimmungen, auf die wir keinen Einfluss haben.
+  </p>
+
+  <h2>Eure Rechte</h2>
+  <p>
+    Ihr habt jederzeit das Recht auf Auskunft über die zu eurer Person
+    gespeicherten Daten (Art. 15 DSGVO), auf Berichtigung (Art. 16), Löschung
+    (Art. 17), Einschränkung der Verarbeitung (Art. 18) und Datenübertragbarkeit
+    (Art. 20). Verarbeitungen, die wir auf ein berechtigtes Interesse stützen,
+    könnt ihr nach Art. 21 DSGVO widersprechen. Eine Anfrage an
+    <a href={`mailto:${site.email}`}>{site.email}</a> genügt.
+  </p>
+  <p>
+    Außerdem könnt ihr euch bei einer Datenschutz-Aufsichtsbehörde beschweren
+    (Art. 77 DSGVO) — zuständig ist die Behörde eures Wohn- oder Arbeitsorts oder
+    die unseres Sitzes: der Landesbeauftragte für Datenschutz und
+    Informationsfreiheit Mecklenburg-Vorpommern.
+  </p>
+
+  <p class="legal-date">Stand: {legal.updated}</p>
 </Legal>
