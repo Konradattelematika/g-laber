@@ -1,7 +1,18 @@
 {
-  "fetchedAt": "2026-09-10T12:00:01.573Z",
-  "channelTitle": "G-Laber Podcast",
+  "fetchedAt": "2026-09-17T12:00:01.520Z",
+  "channelTitle": "G-Laber der Podcast",
   "episodes": [
+    {
+      "title": "Der Fremde im Camper!",
+      "slug": "der-fremde-im-camper",
+      "pubDate": "Wed, 16 Sep 2026 22:01:00 GMT",
+      "duration": "01:19:36",
+      "durationSeconds": 4776,
+      "description": "Seit der Erfindung der Podcasts hat man probiert, Podcast auf die Spitze zu treiben, was zu uns geführt hat. Herzlich willkommen bei unserer feinen kleinen Jubiläums-Folge denn G-laber wird schon ZEHN Folgen alt. Herzlichen Glückwunsch an alle, die alle Folgen gehört haben, wir küssen doch eure Herzen. Ob 17 Pferde zu viel sind oder der Wein in die Muttermilch gehört, das müsst immernoch ihr enscheiden. Wir legen uns hier mehr als nur ins Zeug um euch mit Premium Content aus dem Grau des Alltags zu zerren. Ihr im Gegenzug könnten nun gern abonnieren, kommentieren und einer traurigen Freundin uns empfehlen. Dann müsst ja gar nicht mehr ihr selbst den Beistand leisten, sondern wir leisten dann endlich auch mal etwas. \n\nWir haben zwei Fragen aber können nur eine Umfrage erstellen, daher schreibts doch auch gern in die Kommentare: Was ist geiler - Kühe oder Pferde? Und: Würdet ihr den Camper behalten? Vielleicht hat Maria ja etwas schöneres und besseres verdient. \n\nSeht uns live. Tickets für Roger gibts keine mehr aber für Jana hier. \n\nSchreibt uns eine Bewertung oder ne Mail oder gleich beides hallo@g-laber.com \n\nWir haben so ne geile Website, guck dir das doch mal an",
+      "audioUrl": "https://anchor.fm/s/1160ba830/podcast/play/125829523/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-16%2F432026762-44100-2-e8b9da203ec63.mp3",
+      "episodeType": "full",
+      "episodeNumber": 10
+    },
     {
       "title": "Glübirne im Gruselhaus!",
       "slug": "gluebirne-im-gruselhaus",
