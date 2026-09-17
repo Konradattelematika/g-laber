@@ -1,14 +1,16 @@
 // Abnahme-Check der gebauten Seite gegen die laufende Preview:
 // Overflow, Konsolenfehler, fehlgeschlagene Requests, Überschriften-Struktur,
 // interne Links/Anker, mobile Navigation, Player-Details.
-// Aufruf: source scripts/env.sh && node scripts/check-site.mjs  (Preview auf :4322)
+// Aufruf: source scripts/env.sh && node scripts/check-site.mjs [basis-url]
+// Ohne Argument gegen die lokale Preview (http://localhost:4322).
 import { chromium } from 'playwright-core';
-import { homedir } from 'node:os';
+import { launchOptions } from './lib/browser.mjs';
 
-const browser = await chromium.launch({
-  executablePath: `${homedir()}/.cache/ms-playwright/chromium_headless_shell-1228/chrome-headless-shell-linux64/chrome-headless-shell`,
-  args: ['--no-sandbox', '--disable-gpu'],
-});
+// Basis-URL überschreibbar: so lässt sich derselbe Check auch gegen die
+// Live-Domain fahren (node scripts/check-site.mjs https://g-laber.com).
+const BASE = (process.argv[2] || 'http://localhost:4322').replace(/\/$/, '');
+
+const browser = await chromium.launch(launchOptions());
 
 for (const [w, h] of [[1440, 900], [1024, 768], [768, 1024], [390, 844]]) {
   const page = await browser.newPage({ viewport: { width: w, height: h } });
@@ -16,7 +18,7 @@ for (const [w, h] of [[1440, 900], [1024, 768], [768, 1024], [390, 844]]) {
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
   page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
   page.on('requestfailed', (r) => failed.push(r.url() + ' :: ' + r.failure()?.errorText));
-  await page.goto('http://localhost:4322/', { waitUntil: 'networkidle' });
+  await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   await page.waitForTimeout(1200);
   const overflow = await page.evaluate(() => ({
@@ -37,7 +39,7 @@ for (const [w, h] of [[1440, 900], [1024, 768], [768, 1024], [390, 844]]) {
 
 // Struktur- und Linkcheck auf Desktop
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-await page.goto('http://localhost:4322/', { waitUntil: 'networkidle' });
+await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
 const info = await page.evaluate(() => ({
   headings: [...document.querySelectorAll('h1,h2,h3')].map((h) => h.tagName + ' ' + h.innerText.replace(/\s+/g, ' ').slice(0, 44)),
   imgsWithoutAlt: [...document.querySelectorAll('img')].filter((i) => !i.hasAttribute('alt')).length,
@@ -50,7 +52,7 @@ console.log('Überschriften:', info.headings.join(' | '));
 console.log('img ohne alt:', info.imgsWithoutAlt, '| Player:', info.players);
 const internal = [...new Set(info.links.filter((h) => h.startsWith('/')))];
 for (const href of internal) {
-  const r = await page.request.get('http://localhost:4322' + href);
+  const r = await page.request.get(BASE + href);
   console.log('  ', r.status(), href);
 }
 const hashes = [...new Set(info.links.filter((h) => h.startsWith('#') || h.startsWith('/#')))].map((h) => h.replace(/^\/?#/, ''));
@@ -59,7 +61,7 @@ console.log('  externe Links:', [...new Set(info.links.filter((h) => h.startsWit
 
 // Mobile Navigation
 const m = await browser.newPage({ viewport: { width: 390, height: 844 } });
-await m.goto('http://localhost:4322/', { waitUntil: 'networkidle' });
+await m.goto(`${BASE}/`, { waitUntil: 'networkidle' });
 await m.click('[data-nav-toggle]');
 await m.waitForTimeout(400);
 console.log('\n== Mobile-Nav ==');

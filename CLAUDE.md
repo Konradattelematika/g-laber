@@ -75,14 +75,22 @@ Wurzelelement — beim Bauen neuer Komponenten daran denken.
 - `npm test` — Unit-Tests der Feed-Aufbereitung (`src/lib/episode.test.ts`,
   node:test mit Type-Stripping, keine zusätzliche Abhängigkeit). Deckt
   Bonus-Folgen ohne Nummer, Dauerformate, Zeitzone und Teaser-Split ab.
+  Braucht **Node ≥ 22.6** (`--experimental-strip-types`); steht als `engines`
+  in der package.json. Der Docker-Build nutzt `node:22-alpine` und führt die
+  Tests nicht aus (`npm ci --omit=dev` installiert die devDependencies gar nicht).
 - `npm run build && npx astro preview --port 4322`
 - Screenshots: `source scripts/env.sh && node scripts/shot.mjs <url> <breite> <out.png>`
   bzw. `scripts/scroll-shot.mjs <url> <breite> <selektor> <out.png>`
-  (playwright-core ist devDependency, Chromium über `env.sh`). Achtung:
+  (playwright-core ist devDependency, Chromium über `env.sh`). Den Browser
+  sucht `scripts/lib/browser.mjs`: erst `CHROME_PATH`, sonst die **neueste**
+  Playwright-Revision im Cache — die Revisionsnummer steht bewusst nirgends
+  mehr fest verdrahtet. Achtung:
   Full-Page-Shots zeigen lazy-geladene Bilder unterhalb des Viewports leer —
   für Sektionen scroll-shot nutzen.
 - Abnahme-Check: `source scripts/env.sh && node scripts/check-site.mjs`
-  (Preview muss laufen) prüft Overflow bei 1440/1024/768/390, Konsolenfehler,
+  (Preview muss laufen) bzw. mit Basis-URL gegen die Live-Domain:
+  `node scripts/check-site.mjs https://g-laber.com`.
+  Prüft Overflow bei 1440/1024/768/390, Konsolenfehler,
   fehlgeschlagene Requests, Überschriften, interne Links + Anker, mobile
   Navigation und schießt Player-Detailbilder.
 - Lighthouse lokal: `npx lighthouse http://localhost:4322/ --chrome-flags="--headless --no-sandbox"`.
