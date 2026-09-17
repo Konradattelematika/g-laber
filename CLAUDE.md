@@ -88,12 +88,21 @@ Wurzelelement — beim Bauen neuer Komponenten daran denken.
 - Lighthouse lokal: `npx lighthouse http://localhost:4322/ --chrome-flags="--headless --no-sandbox"`.
   Stand 2026-09-16 (nach Redesign): 100/100/100/100 (Performance schwankt auf
   dem VPS zwischen 99 und 100), LCP ~1,9 s, CLS ~0.
+- Live-Smoke-Test nach jedem Deploy: Statuscodes von `/`, `/impressum`,
+  `/datenschutz`, `/og.jpg`, `/fonts/…woff2`, `/sitemap.xml` prüfen — alle 200
+  OHNE Redirect (sonst greift die nginx.conf nicht).
 
 ## Deployment (eingerichtet 2026-08-24)
 
 - Git-Remote: `git@github.com:Konradattelematika/g-laber.git`, Branch `main`
 - Coolify-App `g-laber-website` im Projekt "Roger G", UUID `b100apyia03x43qr8j7fxq6e`,
   Build Pack Dockerfile, Domain https://g-laber.com (Achtung: g-laber.de war ein Irrtum, .com ist richtig)
+- Das Image ist `nginx:alpine` + eigene `nginx.conf` (seit 17.09.2026). Sie ist
+  nötig, weil Astro mit `trailingSlash: 'never'` baut, die Seiten aber als
+  `impressum/index.html` ablegt: ohne `absolute_redirect off` +
+  `try_files $uri $uri.html $uri/index.html` schickt nginx `/impressum` per 301
+  auf `http://…/impressum/`. Dort stecken auch die Cache-Header für
+  `/_astro/` und `/fonts/` sowie gzip.
 - **Kein GitHub-Webhook** (kein gh-CLI auf dem Server) — nach jedem Push Deploy
   manuell triggern:
 
@@ -116,6 +125,9 @@ Viewport (app.js setzt `.is-in` via IntersectionObserver). Easing `--ease-expo`
 / `--ease-spring`. Barrierefrei über `.sr-only`-Text (kein aria-label auf span).
 
 ## Offene Punkte
+
+- [x] **Redesign live (17.09.2026)**: main = `be4b435`, über Coolify deployt und
+      geprüft (alle Routen 200 ohne Redirect, 11 Folgen, Rechtstexte gefüllt).
 
 - [x] DNS + SSL: seit 2026-08-26 live — A-Record 167.233.49.190 (nur Apex,
       kein www-Record), Let's-Encrypt-Zertifikat gültig bis 2026-11-24.
