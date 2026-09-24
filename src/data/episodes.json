@@ -1,7 +1,18 @@
 {
-  "fetchedAt": "2026-09-17T12:00:01.520Z",
+  "fetchedAt": "2026-09-24T12:00:01.803Z",
   "channelTitle": "G-Laber der Podcast",
   "episodes": [
+    {
+      "title": "Propellern im Spa",
+      "slug": "propellern-im-spa",
+      "pubDate": "Wed, 23 Sep 2026 22:03:00 GMT",
+      "duration": "01:28:00",
+      "durationSeconds": 5280,
+      "description": "Eine Folge voller Geschmacksexplosionen: gegart in der Sauna oder vollmundig auf Wahlplakaten, die niemand versteht. Roger und Jana begegnen sich hier auf Augenhöhe der Müdigkeiten, denn Herr G. kommt frisch von einem Tourblock und Frau J. aus einem Wochenende der luxuriösen Aufgüsse. Damit wir alle gut durch die Woche kommen, wird dieser Donnerstag mit feinstem Podcast-Glutamat verstärkt. Unklar bleibt, ob Dinge einen Namen brauchen und Jana mit Maria etwas anfangen würde, nur um Rogers Meta zu werden. Nur die Treuen werden hören, was der Nachbar mit der Knarre anstellt, aber wenn man so weit hört, hat man auch eine Bewertung abzugeben. Also: Schmeiß den Pur-Party-Mix an um sich wieder untenrum zu spüren.\n\nBegleitmaterial auf Instagram @glaber.podcast Mails an hallo@g-laber.com und alles weitere auf www.g-laber.com",
+      "audioUrl": "https://anchor.fm/s/1160ba830/podcast/play/126141554/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-23%2F432500636-44100-2-bd8fc0526acea.mp3",
+      "episodeType": "full",
+      "episodeNumber": 11
+    },
     {
       "title": "Der Fremde im Camper!",
       "slug": "der-fremde-im-camper",
