@@ -1,7 +1,18 @@
 {
-  "fetchedAt": "2026-10-15T12:00:01.697Z",
+  "fetchedAt": "2026-10-22T12:00:01.724Z",
   "channelTitle": "G-Laber der Podcast",
   "episodes": [
+    {
+      "title": "Der kleine FlickFlack",
+      "slug": "der-kleine-flickflack",
+      "pubDate": "Wed, 21 Oct 2026 22:07:00 GMT",
+      "duration": "01:19:37",
+      "durationSeconds": 4777,
+      "description": "Roger sitzt im Schwarzwald und schmachtet Euter an, Jana in Berlin auch. Es wird gesnackt und es sich gut gehen gelassen - irgendwo zwischen Campervan und Feueralarm Hotel voller Franzosen. Kaltes Pesto schmeckt halt auch denen schlecht, die noch Studenten werden wollen. Aber es wird auch gezaubert mit Glitzeranzug und den kleinsten Flick Flacks der Welt. Eine ganz fantastische Folge!\n\nEmpfohlen wird diese Woche diese Podcast Folge von \"Rätsel des Unbewussten - Macht kaputt, was euch kaputt macht\" die Gewalt in Paris Psychoanalytisch betrachtet\". Und in der Nerd-Ecke lungern die neun Bände von KAGURABACHI rum. Roger legt sie uns kollektiv ans Herz.\n\nSchreib uns auf hallo@g-laber.com oder über Instagram glaber.podcast oder halt Rogi oder Jana. Ihr wisst doch bescheid!",
+      "audioUrl": "https://anchor.fm/s/1160ba830/podcast/play/127853744/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-21%2F434686350-44100-2-5b522f2e74a6f.mp3",
+      "episodeType": "full",
+      "episodeNumber": 15
+    },
     {
       "title": "Weißen Spargel zum Sterben",
       "slug": "weissen-spargel-zum-sterben",
