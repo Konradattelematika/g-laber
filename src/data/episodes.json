@@ -1,7 +1,18 @@
 {
-  "fetchedAt": "2026-10-22T12:00:01.724Z",
+  "fetchedAt": "2026-10-29T12:00:01.882Z",
   "channelTitle": "G-Laber der Podcast",
   "episodes": [
+    {
+      "title": "Rätsel Opa auf der Venus",
+      "slug": "raetsel-opa-auf-der-venus",
+      "pubDate": "Wed, 28 Oct 2026 23:05:00 GMT",
+      "duration": "01:23:31",
+      "durationSeconds": 5011,
+      "description": "Schwer atmend wird hier die Kamera in alle Öffnungen deiner Ohren gehalten, weil hier bekommen alle Gefährten noch was für ihr Geld! Außer wenn wir in Kiel stehen und Bock auf Maronen haben. Daher: Schreibt doch bitte euer Maronen-Map. Wo bekommen wir im Norden unsere Maronen? Wir wollen uns den Gaumen verbrennen und mit einem samten Geschmack von Wald uns in den Herbst katapultieren. Wir wollen einen Mann vorm Kupferkessel stehend anstarren und betteln um noch eine Tüte der süßen Frucht des Herbstes.\n\nNoch die Empfehlung: Sudoku pumpen. Jana auf der Tour besuchen in Hannover am 5.11. und in Düsseldorf am 19.11.\n\nSupportet uns mit einem Abo, lieben Kommentaren aber wir lesen auch die gemeinen <3",
+      "audioUrl": "https://anchor.fm/s/1160ba830/podcast/play/128250085/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-28%2F435256832-44100-2-a1c1b9978299c.mp3",
+      "episodeType": "full",
+      "episodeNumber": 16
+    },
     {
       "title": "Der kleine FlickFlack",
       "slug": "der-kleine-flickflack",
