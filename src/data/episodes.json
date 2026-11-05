@@ -1,7 +1,18 @@
 {
-  "fetchedAt": "2026-10-29T12:00:01.882Z",
+  "fetchedAt": "2026-11-05T12:00:02.567Z",
   "channelTitle": "G-Laber der Podcast",
   "episodes": [
+    {
+      "title": "Straffe Hockey Buben",
+      "slug": "straffe-hockey-buben",
+      "pubDate": "Wed, 04 Nov 2026 23:03:00 GMT",
+      "duration": "01:11:36",
+      "durationSeconds": 4296,
+      "description": "Es ist nicht immer alles geil, manchmal ist es auch HAMMERGEIL. Und genau das wissen die Gefährten doch schon längst. Komm mit auf unsere Reise durch die Grippe-Saison, als wär Husten ein warmes \"Hallo\" und die laufende Nase eine süße Verheißung. Ist es okay sich dem Hype hinzugeben, ihn zu verpassen oder absichtlich zu ignorieren (Schrödingers Schlange)? Es ist ein wilder Ritt der Emotionen. Aber wir brauchen genau dich - denn es ist die dunkle Jahreszeit, daher brauchen wir saftige Serienempfehlungen, um uns ordentlich die Rübe weg-zu-bingen, so lange der Frontallappen genau das noch zulässt. \n\nKommentier, abonnier und halt die Fahne der guten Laune in den Wind der Trostlosigkeit. Genau wie dein Rogi und deine Jani. \n\nWie immer sind wir auch offen für Urteile, funny Stories und überhaupt Dinge, die überbewertet wurden und sind für unser Retten oder Weg. Alles möglich an hallo@g-laber.com",
+      "audioUrl": "https://anchor.fm/s/1160ba830/podcast/play/128752953/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-10-4%2F435898421-44100-2-2c0d0118f4aa18.mp3",
+      "episodeType": "full",
+      "episodeNumber": 17
+    },
     {
       "title": "Rätsel Opa auf der Venus",
       "slug": "raetsel-opa-auf-der-venus",
