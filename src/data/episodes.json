@@ -1,7 +1,18 @@
 {
-  "fetchedAt": "2026-11-05T12:00:02.567Z",
+  "fetchedAt": "2026-11-12T12:00:02.560Z",
   "channelTitle": "G-Laber der Podcast",
   "episodes": [
+    {
+      "title": "Der Auserwählte!",
+      "slug": "der-auserwaehlte",
+      "pubDate": "Thu, 12 Nov 2026 02:00:00 GMT",
+      "duration": "01:10:18",
+      "durationSeconds": 4218,
+      "description": "Völlig unglaublich aber wahr! In dieser Folge gibt es Matcha von Mascha, Tulpen in Thermen und gute Laune auf Dauersendung. Lehn dich zurück und lass es dir gut gehen in diesem Aufguss der Verzweiflung, Tränen und all den Stress kurz vergessen lässt. G-laber ist ja für alle, die Ritalin noch nie ausprobiert haben, aber es dringend brauchen könnten. Kommentiert uns doch die Seele aus dem Laib, mit welchem Gruß Roger im Januar uns Gefährten klar macht, dass er einer von uns ist! Komplett irre Rogi, wir sind so stolz auf dich!!\n\nSchreibt uns was ihr braucht an hallo@g-laber.com",
+      "audioUrl": "https://anchor.fm/s/1160ba830/podcast/play/129272604/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-10-12%2F436552778-44100-2-043320a9fec09.mp3",
+      "episodeType": "full",
+      "episodeNumber": 18
+    },
     {
       "title": "Straffe Hockey Buben",
       "slug": "straffe-hockey-buben",
