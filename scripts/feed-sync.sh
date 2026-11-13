@@ -81,7 +81,7 @@ if [ -z "${COOLIFY_API_TOKEN:-}" ]; then
   log "Hinweis: COOLIFY_API_TOKEN fehlt — Git ist aktuell, aber kein Auto-Deploy."
   exit 0
 fi
-dp="$(curl -s -m 30 -H "Authorization: Bearer $COOLIFY_API_TOKEN" \
+dp="$(curl -s -m 30 -X POST -H "Authorization: Bearer $COOLIFY_API_TOKEN" \
   "$COOLIFY_API/deploy?uuid=$APP_UUID" -w '%{http_code}' -o /dev/null || echo 000)"
 case "$dp" in
   20*) log "Redeploy getriggert (HTTP $dp).";;
