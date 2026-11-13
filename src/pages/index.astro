@@ -15,6 +15,13 @@ const latestPrepared = prepare(latest);
 const schema = [
   {
     '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.title,
+    url: site.domain,
+    inLanguage: 'de',
+  },
+  {
+    '@context': 'https://schema.org',
     '@type': 'PodcastSeries',
     name: site.title,
     description: site.description,

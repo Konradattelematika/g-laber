@@ -6,6 +6,9 @@ export const site = {
   supertitle: 'Der Podcast mit',
   description:
     'Jana Jansen (Comedian, Rheinländerin) und Roger G. (Comedian, Rostocker) haben einen Podcast. Hier sind alle Landratten und Kanalmäuse richtig. Jeden Donnerstag die geballte Prise „ach, alles halb so wild“.',
+  /** Kurzfassung für <meta name="description"> (120–160 Zeichen) */
+  metaDescription:
+    'Der G-Laber Podcast mit Comedian Jana Jansen und Roger G.: jeden Donnerstag neue Folge, die geballte Prise „ach, alles halb so wild“.',
   email: 'hallo@g-laber.com',
   feedUrl: 'https://anchor.fm/s/1160ba830/podcast/rss',
   platforms: {
