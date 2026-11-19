@@ -1,7 +1,18 @@
 {
-  "fetchedAt": "2026-11-12T12:00:02.560Z",
+  "fetchedAt": "2026-11-19T12:00:02.168Z",
   "channelTitle": "G-Laber der Podcast",
   "episodes": [
+    {
+      "title": "Rauchen FULLBLOWN EMBRACEN",
+      "slug": "rauchen-fullblown-embracen",
+      "pubDate": "Wed, 18 Nov 2026 23:05:00 GMT",
+      "duration": "01:30:38",
+      "durationSeconds": 5438,
+      "description": "Mach die Wanne voll mit Wackelpudding, kram die blauen Pall Mall wieder raus: es ist Herbst und Zeit, es sich gut gehen zu lassen. Was sollen sie denn machen??!?!!? Mach es dir gemütlich, mit ein paar Apfelspalten, Provinz und dem Glauben daran, dass es ganz bald nicht mehr so dunkel ist. Was eine Folge. Wenn es dir danach nicht ein bisschen besser geht, war Gute Laune ohnehin nie eine Option.\n\nSchreib uns an hallo@g-laber.com - über Instagram und überhaupt kommentier doch gern, was dir auf der Seele liegt.",
+      "audioUrl": "https://anchor.fm/s/1160ba830/podcast/play/129672709/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-10-18%2F437087425-44100-2-c498d752c09b18.mp3",
+      "episodeType": "full",
+      "episodeNumber": 19
+    },
     {
       "title": "Der Auserwählte!",
       "slug": "der-auserwaehlte",
